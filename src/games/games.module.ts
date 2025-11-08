@@ -19,10 +19,10 @@ import { Bookmaker } from '../entities/bookmaker.entity';
     TypeOrmModule.forFeature([Game, AviatorRound, RouletteRound, Bookmaker]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
+      useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
         signOptions: {
-          expiresIn: (configService.get<string>('JWT_EXPIRES_IN') || '24h') as string,
+          expiresIn: '24h',
         },
       }),
       inject: [ConfigService],
