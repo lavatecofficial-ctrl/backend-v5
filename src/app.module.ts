@@ -38,7 +38,7 @@ import { SpacemanRound } from './entities/spaceman-round.entity';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
         entities: [User, Game, Bookmaker, AviatorWs, AviatorRound, RouletteRound, RouletteWs, Spaceman, SpacemanRound],
-        synchronize: configService.get('NODE_ENV') === 'development',
+        synchronize: false, // Desactivado - usar migraciones manuales
       }),
       inject: [ConfigService],
     }),

@@ -90,13 +90,19 @@ export class SpacemanGateway
       }
 
       // Buscar Spaceman por bookmakerId en lugar de por ID directo
-      const spaceman = await this.spacemanService.findByBookmakerId(spacemanId);
+      let spaceman = await this.spacemanService.findByBookmakerId(spacemanId);
+      
+      // Si no existe, intentar usar el único registro disponible (ID 1)
+      if (!spaceman) {
+        this.logger.warn(`Spaceman no encontrado para bookmakerId: ${spacemanId}, intentando usar registro por defecto (ID 1)`);
+        spaceman = await this.spacemanService.findOne(1);
+      }
       
       if (!spaceman) {
-        this.logger.warn(`Spaceman no encontrado para bookmakerId: ${spacemanId}`);
+        this.logger.warn(`No hay ningún registro de Spaceman disponible`);
         client.emit('error', {
           success: false,
-          message: `Spaceman no encontrado para bookmaker ID: ${spacemanId}. Es posible que necesites crear un registro en la tabla spaceman_ws.`,
+          message: `No hay registros de Spaceman configurados. Por favor, configura la tabla spaceman_ws.`,
         });
         return;
       }

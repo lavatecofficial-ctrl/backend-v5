@@ -10,6 +10,22 @@ export class RouletteService {
     private rouletteWsRepository: Repository<RouletteWs>,
   ) {}
 
+  async findAll(): Promise<RouletteWs[]> {
+    return this.rouletteWsRepository.find({
+      relations: ['bookmaker', 'game'],
+      order: { id: 'ASC' },
+    });
+  }
+
+  async findById(id: number): Promise<RouletteWs | null> {
+    return this.rouletteWsRepository.findOne({
+      where: { id },
+      relations: ['bookmaker', 'game'],
+    });
+  }
+
+  // Edición de page por ID eliminada (solo lectura desde admin)
+
   async findByBookmakerId(bookmakerId: number): Promise<RouletteWs | null> {
     return this.rouletteWsRepository.findOne({
       where: { bookmakerId },

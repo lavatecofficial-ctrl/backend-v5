@@ -10,6 +10,20 @@ export class AviatorService {
     private aviatorWsRepository: Repository<AviatorWs>,
   ) {}
 
+  async findAll(): Promise<AviatorWs[]> {
+    return this.aviatorWsRepository.find({
+      relations: ['bookmaker', 'game'],
+      order: { id: 'ASC' },
+    });
+  }
+
+  async findById(id: number): Promise<AviatorWs | null> {
+    return this.aviatorWsRepository.findOne({
+      where: { id },
+      relations: ['bookmaker', 'game'],
+    });
+  }
+
   async findByBookmakerId(bookmakerId: number): Promise<AviatorWs | null> {
     return this.aviatorWsRepository.findOne({
       where: { bookmakerId },
@@ -34,6 +48,26 @@ export class AviatorService {
     }
     
     aviatorWs.auth_message = authMessage;
+    return this.aviatorWsRepository.save(aviatorWs);
+  }
+
+  async updateAuthMessageById(id: number, authMessage: string): Promise<AviatorWs> {
+    const aviatorWs = await this.findById(id);
+    if (!aviatorWs) {
+      throw new Error('Aviator WebSocket no encontrado');
+    }
+    
+    aviatorWs.auth_message = authMessage;
+    return this.aviatorWsRepository.save(aviatorWs);
+  }
+
+  async updateWebSocketUrlById(id: number, url: string): Promise<AviatorWs> {
+    const aviatorWs = await this.findById(id);
+    if (!aviatorWs) {
+      throw new Error('Aviator WebSocket no encontrado');
+    }
+    
+    aviatorWs.url_websocket = url;
     return this.aviatorWsRepository.save(aviatorWs);
   }
 

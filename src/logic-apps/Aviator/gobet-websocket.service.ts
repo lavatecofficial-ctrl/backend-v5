@@ -56,9 +56,11 @@ export class GoBetWebSocketService {
   ) {}
 
   async initializeConnections(io: any): Promise<void> {
+    console.log('🔌 [GOBET-SERVICE] Iniciando servicio GoBet WebSocket...');
     this.io = this.gateway.getServer();
     
     if (!this.io) {
+      this.logger.error('❌ ERROR: Gateway server es null');
       await new Promise(resolve => setTimeout(resolve, 2000));
       this.io = this.gateway.getServer();
       
@@ -67,19 +69,18 @@ export class GoBetWebSocketService {
       }
     }
     
-    this.logger.log('✅ Inicializando conexiones GoBet WebSocket (ws://)');
+    this.logger.log('✅ Inicializando conexiones WebSocket de GoBet (protocolo ws://)');
     
     try {
       const bookmakers = await this.getGoBetBookmakers();
-      console.log(`📊 [GOBET-SERVICE] Bookmakers encontrados: ${bookmakers.length}`);
+      console.log(`📊 [GOBET-SERVICE] Bookmakers GoBet encontrados: ${bookmakers.length}`);
       
       for (const bookmaker of bookmakers) {
-        console.log(`🔍 [GOBET-SERVICE] Procesando bookmaker ${bookmaker.id} (${bookmaker.bookmaker})`);
         if (this.isValidGoBetBookmaker(bookmaker)) {
-          console.log(`✅ [GOBET-SERVICE] Bookmaker ${bookmaker.id} válido, conectando...`);
+          console.log(`✅ [GOBET-SERVICE] Conectando a GoBet bookmaker ${bookmaker.id}`);
           this.connectToBookmaker(bookmaker, this.io, 0);
         } else {
-          console.log(`❌ [GOBET-SERVICE] Bookmaker ${bookmaker.id} NO válido`);
+          console.log(`❌ [GOBET-SERVICE] Bookmaker ${bookmaker.id} inválido`);
         }
       }
 
@@ -145,11 +146,13 @@ export class GoBetWebSocketService {
     const { id, bookmaker: name, url_websocket, api_message, auth_message, ping_message } = bookmaker;
     
     if (this.connectingBookmakers.has(id)) {
+      console.log(`⚠️ [GOBET] Ya conectando a bookmaker ${id}`);
       return;
     }
 
     const existingConnection = this.connections.get(id);
     if (existingConnection && existingConnection.status === 'CONNECTED' && existingConnection.ws?.readyState === WebSocket.OPEN) {
+      console.log(`✅ [GOBET] Ya conectado a bookmaker ${id}`);
       return;
     }
 
@@ -177,11 +180,8 @@ export class GoBetWebSocketService {
         this.roundData.delete(id);
       }
 
-      // Agregar token en la URL como query parameter (API V2)
-      const apiToken = process.env.API_WEBSOCKET_KEY || 'e8f7a3c9d2b6e1f4a7c3d8b2e9f1a6c4d7b3e8f2a5c9d6b1e4f7a2c8d3b9e5f1a6c2d7b4e9f3a8c5d1b6e2f7a9c4d8b3e1f5a7c6d2b9e4f8a3c1d5b7e6f2a9';
-      const wsUrlWithToken = `${url_websocket}?token=${apiToken}`;
-      
-      const ws = new WebSocket(wsUrlWithToken, [], { headers });
+      console.log(`🔌 [GOBET] Conectando a ${url_websocket} para bookmaker ${id}`);
+      const ws = new WebSocket(url_websocket, [], { headers });
 
       this.connections.set(id, { ws, status: 'CONNECTING', lastPing: null });
       this.roundData.set(id, {
@@ -197,9 +197,18 @@ export class GoBetWebSocketService {
       });
 
       ws.on('open', () => {
-        this.logger.log(`✅ GoBet WebSocket conectado - Bookmaker ${id}`);
+        console.log(`✅ [GOBET] WebSocket conectado para bookmaker ${id}`);
         this.connections.set(id, { ws, status: 'CONNECTED', lastPing: new Date() });
         this.connectingBookmakers.delete(id);
+        
+        // Enviar api_message (JSON directo)
+        try {
+          const apiMsg = JSON.parse(api_message);
+          ws.send(JSON.stringify(apiMsg));
+          console.log(`📤 [GOBET] Handshake enviado para bookmaker ${id}:`, apiMsg);
+        } catch (error) {
+          console.error(`❌ [GOBET] Error parseando api_message:`, error);
+        }
       });
 
       ws.on('message', async (data: Buffer) => {
@@ -207,10 +216,7 @@ export class GoBetWebSocketService {
           const text = data.toString('utf8');
           const obj = JSON.parse(text);
           
-          // API V2: Manejar mensaje de conexión inicial
-          if (obj.status === 'connected') {
-            return;
-          }
+          console.log(`📥 [GOBET] Mensaje recibido de bookmaker ${id}:`, JSON.stringify(obj).substring(0, 200));
           
           // Emitir RAW inmediatamente
           const server = this.gateway.getServer();
@@ -220,6 +226,41 @@ export class GoBetWebSocketService {
               data: obj,
               protocol: 'gobet'
             });
+            
+            if (Math.random() < 0.05) {
+              console.log(`📡 [GOBET] Emitiendo aviator_raw para bookmaker ${id}`);
+            }
+          }
+          
+          // Enviar auth_message después de recibir respuesta del handshake (c=0, a=0)
+          if (!(ws as any).authSent && obj.c === 0 && obj.a === 0) {
+            try {
+              // Parsear auth_message que viene de la BD como JSON
+              const authMsg = JSON.parse(auth_message);
+              
+              // Enviar en el formato correcto para GoBet
+              const authPayload = {
+                c: 0,
+                a: 1,
+                ...authMsg // Incluir todas las credenciales del auth_message
+              };
+              
+              ws.send(JSON.stringify(authPayload));
+              console.log(`📤 [GOBET] Auth enviado para bookmaker ${id}:`, JSON.stringify(authPayload).substring(0, 300));
+              (ws as any).authSent = true;
+            } catch (error) {
+              console.error(`❌ [GOBET] Error parseando auth_message:`, error);
+              console.error(`❌ [GOBET] auth_message content:`, auth_message.substring(0, 500));
+            }
+          }
+          
+          // Log respuesta de autenticación
+          if (obj.c === 0 && obj.a === 1) {
+            if (obj.p && obj.p.success) {
+              console.log(`✅ [GOBET] AUTH EXITOSO para bookmaker ${id}`);
+            } else {
+              console.error(`❌ [GOBET] AUTH FALLIDO para bookmaker ${id}:`, JSON.stringify(obj));
+            }
           }
           
           this.connections.set(id, { ws, status: 'CONNECTED', lastPing: new Date() });
@@ -228,12 +269,12 @@ export class GoBetWebSocketService {
           await this.processGameData(id, obj);
           
         } catch (error) {
-          this.logger.error(`Error procesando mensaje GoBet: ${error.message}`);
+          console.error(`❌ [GOBET] Error procesando mensaje de bookmaker ${id}:`, error);
         }
       });
 
       ws.on('close', (code, reason) => {
-        this.logger.warn(`GoBet WebSocket cerrado - Bookmaker ${id} (Code: ${code})`);
+        console.log(`🔴 [GOBET] WebSocket cerrado para bookmaker ${id}. Code: ${code}, Reason: ${reason}`);
         this.connections.set(id, { ws: null, status: 'DISCONNECTED', lastPing: null });
         this.connectingBookmakers.delete(id);
         
@@ -245,24 +286,30 @@ export class GoBetWebSocketService {
       });
 
       ws.on('error', (error) => {
-        this.logger.error(`GoBet WebSocket error - Bookmaker ${id}: ${error.message}`);
+        console.error(`❌ [GOBET] Error en WebSocket para bookmaker ${id}:`, error.message);
         this.connections.set(id, { ws: null, status: 'DISCONNECTED', lastPing: null });
         this.connectingBookmakers.delete(id);
       });
 
-      // Configurar ping (API V2: solo actualizar timestamp, no enviar mensaje)
+      // Configurar ping
       const pingInterval = setInterval(() => {
-        if (ws.readyState === WebSocket.OPEN) {
+        if (ws.readyState === WebSocket.OPEN && ping_message) {
+          try {
+            const pingMsg = JSON.parse(ping_message);
+            ws.send(JSON.stringify(pingMsg));
+            console.log(`📤 [GOBET-PING] Ping enviado para bookmaker ${id}`);
+          } catch (error) {
+            console.error(`❌ [GOBET] Error parseando ping_message:`, error);
+          }
+          
           this.connections.set(id, { ws, status: 'CONNECTED', lastPing: new Date() });
-        } else if (!this.isResetting) {
-          this.connectToBookmaker(bookmaker, io, retryCount + 1);
         }
       }, 10000);
 
       this.pingIntervals.set(id, pingInterval);
       
     } catch (error) {
-      this.logger.error(`Error conectando GoBet bookmaker ${id}: ${error.message}`);
+      console.error(`❌ [GOBET] Error conectando bookmaker ${id}:`, error);
       this.connections.set(id, { ws: null, status: 'DISCONNECTED', lastPing: null });
       this.connectingBookmakers.delete(id);
     }
@@ -273,124 +320,15 @@ export class GoBetWebSocketService {
     if (!roundData) return;
 
     // Procesar según estructura del mensaje de GoBet
+    // Adaptar según los mensajes reales que recibas
     if (obj.p && obj.p.p) {
       const gameData = obj.p.p;
       const command = obj.p.c;
-      
-      this.logger.log(`📡 [GoBet ${id}] Comando: ${command}`);
-      
-      // Detectar crash
-      if (command === 'x' && gameData.crashX !== undefined) {
-        this.logger.log(`🎯 [GoBet] CRASH detectado para bookmaker ${id}: ${gameData.crashX}x - Round: ${roundData.roundId}`);
-        
-        roundData.maxMultiplier = gameData.crashX;
-        roundData.currentMultiplier = gameData.crashX;
-        roundData.gameState = 'End';
-        
-        // Guardar ronda y emitir historial actualizado
-        setTimeout(async () => {
-          if (roundData.roundId) {
-            await this.saveRoundData(id, gameData.crashX);
-            
-            // Emitir historial actualizado
-            const server = this.gateway.getServer();
-            if (server) {
-              this.logger.log(`🔄 [GoBet] Obteniendo historial actualizado para bookmaker ${id}...`);
-              const updatedHistory = await this.fetchRecentRounds(id, 100);
-              this.logger.log(`📊 [GoBet] Historial obtenido: ${updatedHistory.length} rondas`);
-              this.logger.log(`📡 [GoBet] Emitiendo al room: bookmaker:${id}`);
-              server.to(`bookmaker:${id}`).emit('history', {
-                bookmakerId: id,
-                rounds: updatedHistory
-              });
-              this.logger.log(`✅ [GoBet] Historial actualizado emitido - ${updatedHistory.length} rondas`);
-            }
-            
-            setTimeout(() => this.resetRoundData(id), 4000);
-          }
-        }, 500);
-      }
-      // Detectar inicio de ronda
-      else if (command === 'changeState' && gameData.state === 1) {
-        roundData.gameState = 'Bet';
-        roundData.roundId = gameData.roundId || roundData.roundId;
-        this.logger.log(`🎮 [GoBet] Nueva ronda iniciada: ${roundData.roundId}`);
-      }
-      // Actualizar multiplicador en tiempo real
-      else if (command === 'x' && gameData.x !== undefined) {
-        roundData.currentMultiplier = gameData.x;
-        roundData.gameState = 'Run';
-      }
-    }
-  }
 
-  private async saveRoundData(bookmakerId: number, crashMultiplier: number): Promise<void> {
-    const roundData = this.roundData.get(bookmakerId);
-    if (!roundData || !roundData.roundId) return;
+      console.log(`🎮 [GOBET] Comando: ${command}, Round: ${roundData.roundId}`);
 
-    try {
-      await this.aviatorWsRepository.query(
-        `INSERT INTO aviator_rounds 
-         (bookmaker_id, round_id, max_multiplier, total_bet_amount, total_cashout, casino_profit, bets_count, online_players)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-         ON CONFLICT (bookmaker_id, round_id) DO UPDATE SET
-         max_multiplier = EXCLUDED.max_multiplier,
-         total_bet_amount = EXCLUDED.total_bet_amount,
-         total_cashout = EXCLUDED.total_cashout,
-         casino_profit = EXCLUDED.casino_profit,
-         bets_count = EXCLUDED.bets_count,
-         online_players = EXCLUDED.online_players`,
-        [
-          bookmakerId,
-          roundData.roundId,
-          crashMultiplier,
-          roundData.totalBetAmount || 0,
-          roundData.totalCashout || 0,
-          (roundData.totalBetAmount || 0) - (roundData.totalCashout || 0),
-          roundData.betsCount || 0,
-          roundData.onlinePlayers || 0
-        ]
-      );
-      this.logger.log(`💾 [GoBet] Ronda guardada: ${roundData.roundId} - ${crashMultiplier}x`);
-    } catch (error) {
-      this.logger.error(`❌ [GoBet] Error guardando ronda: ${error.message}`);
-    }
-  }
-
-  private async fetchRecentRounds(bookmakerId: number, limit: number = 100): Promise<any[]> {
-    // Obtener las últimas N rondas en orden descendente, luego invertir para tener ASC
-    const rows = await this.aviatorWsRepository.query(
-      `SELECT round_id, max_multiplier, total_bet_amount, total_cashout, casino_profit, bets_count, online_players, created_at
-       FROM aviator_rounds
-       WHERE bookmaker_id = $1
-       ORDER BY created_at DESC
-       LIMIT $2`,
-      [bookmakerId, limit]
-    );
-
-    // Invertir el array para que quede en orden ASC (más antigua primero, más reciente al final)
-    return rows.reverse().map((r: any) => ({
-      round_id: r.round_id,
-      max_multiplier: Number(r.max_multiplier),
-      total_bet_amount: Number(r.total_bet_amount),
-      total_cashout: Number(r.total_cashout),
-      casino_profit: Number(r.casino_profit),
-      bets_count: Number(r.bets_count),
-      online_players: Number(r.online_players),
-      created_at: r.created_at
-    }));
-  }
-
-  private resetRoundData(bookmakerId: number): void {
-    const roundData = this.roundData.get(bookmakerId);
-    if (roundData) {
-      roundData.betsCount = 0;
-      roundData.totalBetAmount = 0;
-      roundData.totalCashout = 0;
-      roundData.onlinePlayers = 0;
-      roundData.currentMultiplier = 0;
-      roundData.maxMultiplier = 0;
-      roundData.gameState = 'Bet';
+      // Aquí procesar comandos específicos de GoBet
+      // Esto dependerá de la estructura real de los mensajes
     }
   }
 

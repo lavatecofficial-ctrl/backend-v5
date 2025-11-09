@@ -5,11 +5,15 @@ import { AppModule } from './app.module';
 import { seedBookmakers } from './scripts/seed-bookmakers';
 import { seedGames } from './scripts/seed-games';
 import { getDataSourceToken } from '@nestjs/typeorm';
+import { IoAdapter } from '@nestjs/platform-socket.io';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   const configService = app.get(ConfigService);
+  
+  // Configurar adaptador de Socket.IO
+  app.useWebSocketAdapter(new IoAdapter(app));
   
   // Configurar CORS
   const frontendUrl = configService.get('FRONTEND_URL') || 'http://localhost:3000';

@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "logs\\.9f269aacd5339609c24d8e06af3eb356626c1cfc-audit.json",
+    "files": [
+        {
+            "date": 1762674136018,
+            "name": "logs\\aviator-error-2025-11-09.log",
+            "hash": "a767ad70f69c0e727e783a5828dc12cfc561ecad2efd41020e9706ef564ae4f8"
+        }
+    ],
+    "hashType": "sha256"
+}

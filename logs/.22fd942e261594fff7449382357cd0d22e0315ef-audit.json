@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "logs\\.22fd942e261594fff7449382357cd0d22e0315ef-audit.json",
+    "files": [
+        {
+            "date": 1762674136035,
+            "name": "logs\\spaceman-2025-11-09.log",
+            "hash": "ad9e791bdbf2ae5e0644053482db7da492fe4750e0867248c65a6513a7ac671b"
+        },
+        {
+            "date": 1762675520736,
+            "name": "logs\\spaceman-2025-11-09.log.1",
+            "hash": "d4f2184efd80fb069aef70db9e2a35b45f03e70a34fe03e36baf230d9d3e61fe"
+        }
+    ],
+    "hashType": "sha256"
+}

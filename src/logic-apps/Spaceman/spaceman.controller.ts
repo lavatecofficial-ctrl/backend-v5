@@ -4,7 +4,8 @@ import {
   Post,
   Patch,
   Body,
-  Param
+  Param,
+  Query
 } from '@nestjs/common';
 import { SpacemanWebSocketService } from './spaceman-websocket.service';
 import { SpacemanService } from './spaceman.service';
@@ -57,6 +58,68 @@ export class SpacemanController {
       return {
         success: false,
         message: `Error iniciando servicio de Spaceman: ${error.message}`,
+      };
+    }
+  }
+
+  /**
+   * Listar registros de Spaceman (equivalente a websockets)
+   */
+  @Get('websockets')
+  async getAllWebSockets() {
+    try {
+      const items = await this.spacemanService.findAll();
+      return {
+        success: true,
+        message: 'Websockets de Spaceman obtenidos',
+        data: items.map((ws) => ({
+          id: ws.id,
+          bookmakerId: ws.bookmakerId,
+          gameId: ws.gameId,
+          urlSessionid: ws.urlSessionid,
+          apiMessage: '',
+          authMessage: ws.jsessionid || '',
+          pingMessage: '',
+          statusWs: ws.statusWs,
+          createdAt: ws.created_at,
+          updatedAt: ws.updated_at,
+          bookmaker: ws.bookmaker,
+          game: ws.game,
+          isEditable: true,
+        })),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Error al obtener websockets de Spaceman',
+        data: [],
+      };
+    }
+  }
+
+  /**
+   * Actualizar jsessionid (auth message equivalente) por ID
+   */
+  @Post('websocket/:id/auth-message')
+  async updateAuthMessageById(
+    @Param('id') id: string,
+    @Body() body: { authMessage: string },
+  ) {
+    try {
+      const updated = await this.spacemanService.updateAuthMessageById(parseInt(id), body.authMessage);
+      return {
+        success: true,
+        message: 'Auth Message (jsessionid) actualizado correctamente',
+        data: {
+          id: updated.id,
+          authMessage: updated.jsessionid,
+          updatedAt: updated.updated_at,
+        },
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Error al actualizar Auth Message',
       };
     }
   }
@@ -130,11 +193,13 @@ export class SpacemanController {
   /**
    * Crear registro de Spaceman automáticamente si no existe
    */
-  @Post('create-default')
-  async createDefaultSpaceman() {
+  @Post('create-default/:bookmakerId')
+  async createDefaultSpacemanWithId(@Param('bookmakerId') bookmakerId: string) {
     try {
-      // Verificar si ya existe un registro para el bookmaker ID 1
-      const existingSpaceman = await this.spacemanService.findByBookmakerId(1);
+      const targetBookmakerId = parseInt(bookmakerId);
+      
+      // Verificar si ya existe un registro para el bookmaker
+      const existingSpaceman = await this.spacemanService.findByBookmakerId(targetBookmakerId);
       
       if (existingSpaceman) {
         return {
@@ -147,7 +212,7 @@ export class SpacemanController {
       // Crear el registro por defecto
       const spacemanData = {
         gameId: 2, // ID del juego Spaceman
-        bookmakerId: 1, // ID del bookmaker activo (888Starz)
+        bookmakerId: targetBookmakerId,
         urlSessionid: 'https://example.com/session',
         jsessionid: 'jsessionid_example',
         broadcasterBase: 'wss://broadcaster.pragmaticplaylive.net/websocket/real',
@@ -166,6 +231,166 @@ export class SpacemanController {
       return {
         success: false,
         message: 'Error al crear Spaceman: ' + error.message,
+      };
+    }
+  }
+
+  /**
+   * Crear registro de Spaceman con bookmaker por defecto (ID 1)
+   */
+  @Post('create-default')
+  async createDefaultSpaceman() {
+    try {
+      const targetBookmakerId = 1;
+      
+      // Verificar si ya existe un registro para el bookmaker
+      const existingSpaceman = await this.spacemanService.findByBookmakerId(targetBookmakerId);
+      
+      if (existingSpaceman) {
+        return {
+          success: true,
+          message: 'Spaceman ya existe',
+          data: existingSpaceman,
+        };
+      }
+
+      // Crear el registro por defecto
+      const spacemanData = {
+        gameId: 2, // ID del juego Spaceman
+        bookmakerId: targetBookmakerId,
+        urlSessionid: 'https://example.com/session',
+        jsessionid: 'jsessionid_example',
+        broadcasterBase: 'wss://broadcaster.pragmaticplaylive.net/websocket/real',
+        financeBase: 'wss://gs9.pragmaticplaylive.net/websocket/finance_real',
+        tokenUpdatedAt: new Date().toISOString(),
+      };
+
+      const spaceman = await this.spacemanService.create(spacemanData);
+      
+      return {
+        success: true,
+        message: 'Spaceman creado exitosamente',
+        data: spaceman,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: 'Error al crear Spaceman: ' + error.message,
+      };
+    }
+  }
+
+  /**
+   * Actualizar headers de WebSocket
+   */
+  @Patch(':id/headers')
+  async updateHeaders(
+    @Param('id') id: string,
+    @Body() body: { headers: { broadcaster?: Record<string, string>; finance?: Record<string, string> } }
+  ) {
+    try {
+      const spacemanId = parseInt(id);
+      const updated = await this.spacemanService.update(spacemanId, {
+        headers: body.headers
+      });
+
+      return {
+        success: true,
+        message: 'Headers actualizados exitosamente',
+        data: {
+          id: updated.id,
+          headers: updated.headers,
+        },
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: `Error actualizando headers: ${error.message}`,
+      };
+    }
+  }
+
+  /**
+   * Obtener rondas de Spaceman
+   */
+  @Get('rounds')
+  async getRounds(
+    @Query('spacemanId') spacemanId?: string,
+    @Query('limit') limit?: string,
+    @Query('offset') offset?: string,
+  ) {
+    try {
+      const parsedSpacemanId = spacemanId ? parseInt(spacemanId) : undefined;
+      const parsedLimit = limit ? parseInt(limit) : 100;
+      const parsedOffset = offset ? parseInt(offset) : 0;
+
+      const result = await this.spacemanService.getRounds(
+        parsedSpacemanId,
+        parsedLimit,
+        parsedOffset,
+      );
+
+      return {
+        success: true,
+        message: 'Rondas obtenidas exitosamente',
+        data: result,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: `Error obteniendo rondas: ${error.message}`,
+      };
+    }
+  }
+
+  /**
+   * Obtener estadísticas de Spaceman
+   */
+  @Get('stats')
+  async getStats(@Query('spacemanId') spacemanId?: string) {
+    try {
+      const parsedSpacemanId = spacemanId ? parseInt(spacemanId) : undefined;
+      const stats = await this.spacemanService.getStats(parsedSpacemanId);
+
+      return {
+        success: true,
+        message: 'Estadísticas obtenidas exitosamente',
+        data: stats,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: `Error obteniendo estadísticas: ${error.message}`,
+      };
+    }
+  }
+
+  /**
+   * Obtener últimas rondas de un Spaceman específico
+   */
+  @Get(':id/latest-rounds')
+  async getLatestRounds(
+    @Param('id') id: string,
+    @Query('limit') limit?: string,
+  ) {
+    try {
+      const spacemanId = parseInt(id);
+      const parsedLimit = limit ? parseInt(limit) : 10;
+
+      const rounds = await this.spacemanService.getLatestRounds(
+        spacemanId,
+        parsedLimit,
+      );
+
+      return {
+        success: true,
+        message: 'Últimas rondas obtenidas exitosamente',
+        data: rounds,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: `Error obteniendo últimas rondas: ${error.message}`,
       };
     }
   }

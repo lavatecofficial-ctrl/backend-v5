@@ -113,6 +113,19 @@ export class SpacemanService {
     }
   }
 
+  async updateAuthMessageById(id: number, authMessage: string): Promise<Spaceman> {
+    try {
+      const spaceman = await this.findOne(id);
+      spaceman.jsessionid = authMessage;
+      return await this.spacemanRepository.save(spaceman);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new BadRequestException('Error al actualizar auth_message (jsessionid): ' + error.message);
+    }
+  }
+
 
 
   async getRounds(

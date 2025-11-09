@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "logs\\.31a2c64ee027616f6799104197e2869207b5270c-audit.json",
+    "files": [
+        {
+            "date": 1762674136029,
+            "name": "logs\\roulette-2025-11-09.log",
+            "hash": "e2ca36b3dd79249c70faa789adab43dc307aa040ffc18bc846087ee54226a1d7"
+        }
+    ],
+    "hashType": "sha256"
+}

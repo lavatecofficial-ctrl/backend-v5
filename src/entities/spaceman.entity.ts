@@ -32,6 +32,12 @@ export class Spaceman {
   @Column({ name: 'status_ws', type: 'varchar', length: 20, default: 'DISCONNECTED' })
   statusWs: string;
 
+  @Column({ name: 'headers', type: 'jsonb', nullable: true })
+  headers?: {
+    broadcaster?: Record<string, string>;
+    finance?: Record<string, string>;
+  };
+
   @CreateDateColumn()
   created_at: Date;
 

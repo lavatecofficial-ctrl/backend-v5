@@ -28,6 +28,9 @@ export class AviatorWs {
   @Column({ name: 'status_ws', type: 'varchar', length: 20, default: 'DISCONNECTED' })
   status_ws: string;
 
+  @Column({ name: 'is_editable', type: 'boolean', default: true })
+  is_editable: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 

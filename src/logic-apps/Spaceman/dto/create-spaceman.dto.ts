@@ -28,4 +28,10 @@ export class CreateSpacemanDto {
   @IsOptional()
   @IsDateString({}, { message: 'El token_updated_at debe ser una fecha válida' })
   tokenUpdatedAt?: string;
+
+  @IsOptional()
+  headers?: {
+    broadcaster?: Record<string, string>;
+    finance?: Record<string, string>;
+  };
 }

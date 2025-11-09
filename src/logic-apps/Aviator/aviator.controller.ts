@@ -15,6 +15,38 @@ export class AviatorController {
     private readonly predictorService: PredictorService,
   ) {}
 
+  @Get('websockets')
+  async getAllWebSockets() {
+    try {
+      const websockets = await this.aviatorService.findAll();
+      return {
+        success: true,
+        message: 'Websockets de Aviator obtenidos',
+        data: websockets.map(ws => ({
+          id: ws.id,
+          bookmakerId: ws.bookmakerId,
+          gameId: ws.gameId,
+          urlWebsocket: ws.url_websocket,
+          apiMessage: ws.api_message,
+          authMessage: ws.auth_message,
+          pingMessage: ws.ping_message,
+          statusWs: ws.status_ws,
+          isEditable: ws.is_editable,
+          createdAt: ws.created_at,
+          updatedAt: ws.updated_at,
+          bookmaker: ws.bookmaker,
+          game: ws.game,
+        })),
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Error al obtener websockets',
+        data: [],
+      };
+    }
+  }
+
   @Get('connections')
   getConnections() {
     try {
@@ -293,6 +325,58 @@ export class AviatorController {
       return {
         success: false,
         message: error.message || 'Error al actualizar el estado del WebSocket',
+      };
+    }
+  }
+
+  @Post('websocket/:id/auth-message')
+  async updateAuthMessageById(
+    @Param('id') id: string,
+    @Body() body: { authMessage: string },
+  ) {
+    try {
+      const wsId = parseInt(id);
+      const updated = await this.aviatorService.updateAuthMessageById(wsId, body.authMessage);
+      
+      return {
+        success: true,
+        message: 'Mensaje de autenticación actualizado correctamente',
+        data: {
+          id: updated.id,
+          bookmakerId: updated.bookmakerId,
+          authMessage: updated.auth_message,
+        },
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Error al actualizar el mensaje de autenticación',
+      };
+    }
+  }
+
+  @Post('websocket/:id/url')
+  async updateWebSocketUrlById(
+    @Param('id') id: string,
+    @Body() body: { url: string },
+  ) {
+    try {
+      const wsId = parseInt(id);
+      const updated = await this.aviatorService.updateWebSocketUrlById(wsId, body.url);
+      
+      return {
+        success: true,
+        message: 'URL WebSocket actualizada correctamente',
+        data: {
+          id: updated.id,
+          bookmakerId: updated.bookmakerId,
+          urlWebsocket: updated.url_websocket,
+        },
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Error al actualizar la URL WebSocket',
       };
     }
   }

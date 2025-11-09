@@ -51,6 +51,8 @@ export class SpacemanWebSocketService {
   private forceTokenUpdate: boolean = false; // Forzar actualización de tokens
   // Eliminado: Sistema de actualización automática de tokens
   private predictionInFlight: Set<number> = new Set();
+  private reconnectingSpaceman: Set<number> = new Set(); // Rastrear reconexiones por session offline
+  private reconnectIntervals: Map<number, NodeJS.Timeout> = new Map(); // Intervalos de reconexión cada 5 minutos
 
   constructor(
     @InjectRepository(Spaceman)
@@ -99,6 +101,49 @@ export class SpacemanWebSocketService {
     }
   }
 
+  private startAutoReconnect(spacemanId: number): void {
+    // Limpiar intervalo anterior si existe
+    if (this.reconnectIntervals.has(spacemanId)) {
+      clearInterval(this.reconnectIntervals.get(spacemanId)!);
+    }
+
+    // Reconectar cada 5 minutos (300000 ms)
+    const interval = setInterval(async () => {
+      this.logger.log(`🔄 Reconexión automática programada (5 min) para Spaceman ID: ${spacemanId}`);
+      
+      try {
+        // Marcar como reconexión para agregar reconnect=true
+        this.reconnectingSpaceman.add(spacemanId);
+        
+        // Cerrar conexiones actuales
+        const multiplierConn = this.connections.get(`${spacemanId}_multiplier`);
+        const financeConn = this.connections.get(`${spacemanId}_finance`);
+        
+        if (multiplierConn?.ws) {
+          multiplierConn.ws.close(4002, 'Auto reconnect - 5 min');
+        }
+        if (financeConn?.ws) {
+          financeConn.ws.close(4002, 'Auto reconnect - 5 min');
+        }
+        
+        // Esperar un momento y reconectar
+        setTimeout(async () => {
+          const connection = await this.spacemanRepository.findOne({ where: { id: spacemanId } });
+          if (connection) {
+            this.logger.log(`🔄 Ejecutando reconexión automática con reconnect=true para Spaceman ID: ${spacemanId}`);
+            await this.updateTokenAndConnect(connection);
+          }
+        }, 2000);
+        
+      } catch (error) {
+        this.logger.error(`❌ Error en reconexión automática para Spaceman ID: ${spacemanId}: ${error.message}`);
+      }
+    }, 300000); // 5 minutos
+    
+    this.reconnectIntervals.set(spacemanId, interval);
+    this.logger.log(`✅ Reconexión automática cada 5 minutos iniciada para Spaceman ID: ${spacemanId}`);
+  }
+
   private startPing(ws: WebSocket, type: string, spacemanId: number): void {
     const sendPing = () => {
       const now = new Date();
@@ -111,9 +156,11 @@ export class SpacemanWebSocketService {
           ws.send(`<ping time='${timestamp}'></ping>`);
           this.logger.debug(`Ping enviado a ${type} Spaceman ${spacemanId}: ${timestamp}`);
           
-          // Loggear ping del multiplicador en archivo específico
+          // Loggear ping en archivos específicos
           if (type === 'multiplier') {
             this.logMultiplierMessage(spacemanId, `Ping enviado: ${timestamp}`);
+          } else if (type === 'finance') {
+            this.logFinanceMessage(spacemanId, `<ping time='${timestamp}'></ping>`);
           }
         }
         
@@ -123,9 +170,11 @@ export class SpacemanWebSocketService {
             ws.send(`<ping time='${timestamp}'></ping>`);
             this.logger.debug(`Ping enviado a ${type} Spaceman ${spacemanId}: ${timestamp}`);
             
-            // Loggear ping del multiplicador en archivo específico
+            // Loggear ping en archivos específicos
             if (type === 'multiplier') {
               this.logMultiplierMessage(spacemanId, `Ping enviado: ${timestamp}`);
+            } else if (type === 'finance') {
+              this.logFinanceMessage(spacemanId, `<ping time='${timestamp}'></ping>`);
             }
           }
         }, 10000);
@@ -167,6 +216,13 @@ export class SpacemanWebSocketService {
     const caller = stack?.split('\n')[2]?.trim() || 'unknown';
     this.logger.warn(`🔄 RESET CONNECTIONS llamado desde: ${caller}`);
     
+    // Limpiar intervalos de auto-reconnect
+    for (const [spacemanId, interval] of this.reconnectIntervals) {
+      clearInterval(interval);
+      this.logger.log(`Intervalo de auto-reconnect limpiado para Spaceman ID: ${spacemanId}`);
+    }
+    this.reconnectIntervals.clear();
+    
     // Cerrar todas las conexiones WebSocket existentes
     for (const [key, connection] of this.connections) {
       if (connection.ws && connection.ws.readyState === WebSocket.OPEN) {
@@ -186,6 +242,13 @@ export class SpacemanWebSocketService {
 
   public async closeAllConnections(): Promise<void> {
     this.logger.log('Cerrando todas las conexiones WebSocket de Spaceman...');
+    
+    // Limpiar intervalos de auto-reconnect
+    for (const [spacemanId, interval] of this.reconnectIntervals) {
+      clearInterval(interval);
+      this.logger.log(`Intervalo de auto-reconnect limpiado para Spaceman ID: ${spacemanId}`);
+    }
+    this.reconnectIntervals.clear();
     
     // Cerrar todas las conexiones WebSocket existentes
     for (const [key, connection] of this.connections) {
@@ -235,6 +298,7 @@ export class SpacemanWebSocketService {
           broadcasterBase: true,
           financeBase: true,
           tokenUpdatedAt: true,
+          headers: true,
           bookmaker: {
             id: true,
             isActive: true,
@@ -244,8 +308,8 @@ export class SpacemanWebSocketService {
       });
 
       for (const connection of spacemanConnections) {
-        // FORZAR actualización de token al inicializar conexiones
-        this.setForceTokenUpdate(true);
+        // NO forzar actualización de token - usar el configurado manualmente
+        this.setForceTokenUpdate(false);
         await this.updateTokenAndConnect(connection);
       }
 
@@ -365,25 +429,20 @@ export class SpacemanWebSocketService {
         return;
       }
 
-      if (!connection.urlSessionid) {
-        this.logger.warn(`Spaceman ${connection.id} no tiene urlSessionid, saltando actualización de token`);
-        return;
-      }
-
       // Marcar como conectando
       this.connectingSpaceman.add(connection.id);
       
       let success = true;
       
-      // SIEMPRE actualizar tokens cuando se llama desde initializeConnections o se fuerza
+      // Solo actualizar tokens si se fuerza explícitamente
       if (this.forceTokenUpdate) {
         this.logger.log(`🔄 FORZANDO actualización de token para Spaceman ${connection.id}...`);
-        success = await this.spacemanTokenService.updateJSessionId(connection.id, true); // Forzar siempre
+        success = await this.spacemanTokenService.updateJSessionId(connection.id, true);
         this.forceTokenUpdate = false; // Resetear flag después de usar
       } else {
-        // Si no está forzado, también actualizar para asegurar token fresco
-        this.logger.log(`🔄 Actualizando token para Spaceman ${connection.id} (inicialización)...`);
-        success = await this.spacemanTokenService.updateJSessionId(connection.id, true); // Forzar siempre
+        // Validar que el token existe sin actualizarlo
+        this.logger.log(`✅ Usando JSESSIONID configurado manualmente para Spaceman ${connection.id}`);
+        success = await this.spacemanTokenService.updateJSessionId(connection.id, false);
       }
       
       if (success) {
@@ -399,6 +458,7 @@ export class SpacemanWebSocketService {
             jsessionid: true,
             broadcasterBase: true,
             financeBase: true,
+            headers: true,
             bookmaker: {
               id: true,
               isActive: true,
@@ -450,23 +510,49 @@ export class SpacemanWebSocketService {
 
   private connectToMultiplier(connection: Spaceman): void {
     const { id } = connection;
-    const { broadcasterUrl } = this.spacemanTokenService.getWebSocketUrls(connection);
+    // Verificar si es una reconexión por session offline
+    const isReconnecting = this.reconnectingSpaceman.has(id);
+    const { broadcasterUrl } = this.spacemanTokenService.getWebSocketUrls(connection, isReconnecting);
     
+    // Limpiar flag de reconexión después de obtener la URL
+    if (isReconnecting) {
+      this.reconnectingSpaceman.delete(id);
+      this.logger.log(`🔄 Reconectando multiplicador con reconnect=true para Spaceman ID: ${id}`);
+    }
+    
+    // Extraer Host dinámicamente de la URL
+    let dynamicHost = 'broadcaster.pragmaticplaylive.net';
+    try {
+      const urlObj = new URL(broadcasterUrl);
+      dynamicHost = urlObj.hostname;
+    } catch (error) {
+      this.logger.warn(`No se pudo extraer host de URL: ${broadcasterUrl}, usando default`);
+    }
 
-    const headers = {
-      Host: 'broadcaster.pragmaticplaylive.net',
+    // Usar headers de la BD si existen, sino usar defaults
+    const defaultHeaders = {
+      Host: dynamicHost,
       Connection: 'Upgrade',
       Pragma: 'no-cache',
       'Cache-Control': 'no-cache',
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
       Upgrade: 'websocket',
       Origin: 'https://client.pragmaticplaylive.net',
       'Sec-WebSocket-Version': '13',
       'Accept-Encoding': 'gzip, deflate, br, zstd',
       'Accept-Language': 'es-419,es;q=0.9',
+      'Sec-GPC': '1',
       'Sec-WebSocket-Key': crypto.randomBytes(16).toString('base64'),
       'Sec-WebSocket-Extensions': 'permessage-deflate; client_max_window_bits',
     };
+
+    const headers = connection.headers?.broadcaster 
+      ? { 
+          ...connection.headers.broadcaster, 
+          'Sec-WebSocket-Key': crypto.randomBytes(16).toString('base64'),
+          Host: dynamicHost // Siempre usar el host dinámico
+        }
+      : defaultHeaders;
 
     if (!broadcasterUrl) {
       this.logger.error(`URL WebSocket no válida para Spaceman ID: ${id}`);
@@ -481,6 +567,9 @@ export class SpacemanWebSocketService {
       this.startPing(ws, 'multiplier', id);
       this.logger.log(`Conexión multiplicador establecida para Spaceman ID: ${id}`);
       
+      // Iniciar reconexión automática cada 5 minutos
+      this.startAutoReconnect(id);
+      
       // Actualizar estado en la base de datos
       this.updateWebSocketStatusInDB(id, 'CONNECTED');
       
@@ -494,17 +583,25 @@ export class SpacemanWebSocketService {
         // Verificar mensaje de sesión offline - única reconexión automática permitida
         if (message.includes('<session>offline</session>')) {
           this.logger.warn(`🔄 Sesión offline detectada en multiplicador Spaceman ID: ${id}. Iniciando reconexión única con actualización de token...`);
-          ws.close();
+          
+          // Marcar como reconexión para agregar reconnect=true
+          this.reconnectingSpaceman.add(id);
+          this.logger.log(`🔄 Flag de reconexión marcado para multiplicador Spaceman ID: ${id}`);
+          
+          // Cerrar con código específico para session offline (4001)
+          ws.close(4001, 'Session offline - reconnecting');
           
           // Reconectar una sola vez después de breve delay
           setTimeout(async () => {
+            this.logger.log(`🔄 Iniciando reconexión programada para multiplicador Spaceman ID: ${id}...`);
             try {
               const connection = await this.spacemanRepository.findOne({ where: { id } });
               if (connection) {
                 // FORZAR actualización de token por session offline
                 this.setForceTokenUpdate(true);
+                this.logger.log(`🔄 Llamando updateTokenAndConnect para multiplicador Spaceman ID: ${id}...`);
                 await this.updateTokenAndConnect(connection);
-                this.logger.log(`✅ Reconexión automática completada para multiplicador Spaceman ID: ${id} con token actualizado`);
+                this.logger.log(`✅ Reconexión automática completada para multiplicador Spaceman ID: ${id} con token actualizado y reconnect=true`);
               } else {
                 this.logger.error(`❌ Spaceman ID: ${id} no encontrado para reconexión automática`);
               }
@@ -593,6 +690,7 @@ export class SpacemanWebSocketService {
               broadcasterBase: true,
               financeBase: true,
               tokenUpdatedAt: true,
+              headers: true,
               bookmaker: {
                 id: true,
                 isActive: true,
@@ -618,7 +716,15 @@ export class SpacemanWebSocketService {
 
   private connectToFinance(connection: Spaceman): void {
     const { id } = connection;
-    const { financeUrl } = this.spacemanTokenService.getWebSocketUrls(connection);
+    // Verificar si es una reconexión por session offline
+    const isReconnecting = this.reconnectingSpaceman.has(id);
+    const { financeUrl } = this.spacemanTokenService.getWebSocketUrls(connection, isReconnecting);
+    
+    // Limpiar flag de reconexión después de obtener la URL
+    if (isReconnecting) {
+      this.reconnectingSpaceman.delete(id);
+      this.logger.log(`🔄 Reconectando finanzas con reconnect=true para Spaceman ID: ${id}`);
+    }
     
 
     if (!financeUrl) {
@@ -626,20 +732,39 @@ export class SpacemanWebSocketService {
       return;
     }
 
-    const headers = {
-      Host: 'gs17.pragmaticplaylive.net',
+    // Extraer Host dinámicamente de la URL
+    let dynamicHost = 'gs12.pragmaticplaylive.net';
+    try {
+      const urlObj = new URL(financeUrl);
+      dynamicHost = urlObj.hostname;
+    } catch (error) {
+      this.logger.warn(`No se pudo extraer host de URL: ${financeUrl}, usando default`);
+    }
+
+    // Usar headers de la BD si existen, sino usar defaults
+    const defaultHeaders = {
+      Host: dynamicHost,
       Connection: 'Upgrade',
       Pragma: 'no-cache',
       'Cache-Control': 'no-cache',
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
       Upgrade: 'websocket',
       Origin: 'https://client.pragmaticplaylive.net',
       'Sec-WebSocket-Version': '13',
       'Accept-Encoding': 'gzip, deflate, br, zstd',
       'Accept-Language': 'es-419,es;q=0.9',
+      'Sec-GPC': '1',
       'Sec-WebSocket-Key': crypto.randomBytes(16).toString('base64'),
       'Sec-WebSocket-Extensions': 'permessage-deflate; client_max_window_bits',
     };
+
+    const headers = connection.headers?.finance 
+      ? { 
+          ...connection.headers.finance, 
+          'Sec-WebSocket-Key': crypto.randomBytes(16).toString('base64'),
+          Host: dynamicHost // Siempre usar el host dinámico
+        }
+      : defaultHeaders;
 
     const ws = new WebSocket(financeUrl, { headers });
     this.connections.set(`${id}_finance`, { ws, status: 'CONNECTING', retryCount: 0 });
@@ -662,17 +787,25 @@ export class SpacemanWebSocketService {
         // Verificar mensaje de sesión offline - única reconexión automática permitida
         if (message.includes('<session>offline</session>')) {
           this.logger.warn(`🔄 Sesión offline detectada en finanzas Spaceman ID: ${id}. Iniciando reconexión única con actualización de token...`);
-          ws.close();
+          
+          // Marcar como reconexión para agregar reconnect=true
+          this.reconnectingSpaceman.add(id);
+          this.logger.log(`🔄 Flag de reconexión marcado para finanzas Spaceman ID: ${id}`);
+          
+          // Cerrar con código específico para session offline (4001)
+          ws.close(4001, 'Session offline - reconnecting');
           
           // Reconectar una sola vez después de breve delay
           setTimeout(async () => {
+            this.logger.log(`🔄 Iniciando reconexión programada para finanzas Spaceman ID: ${id}...`);
             try {
               const connection = await this.spacemanRepository.findOne({ where: { id } });
               if (connection) {
                 // FORZAR actualización de token por session offline
                 this.setForceTokenUpdate(true);
+                this.logger.log(`🔄 Llamando updateTokenAndConnect para finanzas Spaceman ID: ${id}...`);
                 await this.updateTokenAndConnect(connection);
-                this.logger.log(`✅ Reconexión automática completada para finanzas Spaceman ID: ${id} con token actualizado`);
+                this.logger.log(`✅ Reconexión automática completada para finanzas Spaceman ID: ${id} con token actualizado y reconnect=true`);
               } else {
                 this.logger.error(`❌ Spaceman ID: ${id} no encontrado para reconexión automática`);
               }
@@ -758,6 +891,7 @@ export class SpacemanWebSocketService {
               broadcasterBase: true,
               financeBase: true,
               tokenUpdatedAt: true,
+              headers: true,
               bookmaker: {
                 id: true,
                 isActive: true,
@@ -914,7 +1048,18 @@ export class SpacemanWebSocketService {
       });
 
       this.logger.log(`Ronda guardada para Spaceman ${spacemanId}: ${round.game_id}`);
-      this.io?.to(`spaceman:${spacemanId}`).emit('round', spacemanRound);
+      
+      // Emitir ronda guardada con TODOS los datos para que el frontend actualice TODO
+      this.io?.to(`spaceman:${spacemanId}`).emit('round', {
+        game_id: spacemanRound.game_id,
+        max_multiplier: spacemanRound.max_multiplier,
+        bets_count: spacemanRound.bets_count,
+        total_bet_amount: spacemanRound.total_bet_amount,
+        online_player: spacemanRound.online_player,
+        total_cashout: spacemanRound.total_cashout,
+        casino_profit: spacemanRound.casino_profit,
+        game_state: 'End',
+      });
       
       // Trigger prediction
       await this.triggerPrediction(spacemanId);

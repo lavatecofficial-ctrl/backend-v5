@@ -203,4 +203,35 @@ export class RouletteController {
       };
     }
   }
+
+  // Nuevo: listar todos los registros (websockets de roulette)
+  @Get('websockets')
+  async getAllWebSockets() {
+    try {
+      const items = await this.rouletteService.findAll();
+      return {
+        success: true,
+        message: 'Websockets de Roulette obtenidos',
+        data: items.map(ws => ({
+          id: ws.id,
+            bookmakerId: ws.bookmakerId,
+            gameId: ws.gameId,
+            page: ws.page,
+            createdAt: ws.createdAt,
+            updatedAt: ws.updatedAt,
+            bookmaker: ws.bookmaker,
+            game: ws.game,
+            isEditable: true,
+        }))
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Error al listar websockets de roulette',
+        data: [],
+      };
+    }
+  }
+
+  // Edición de page eliminada (solo lectura)
 }
