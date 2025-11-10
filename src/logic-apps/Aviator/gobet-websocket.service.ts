@@ -201,13 +201,22 @@ export class GoBetWebSocketService {
         this.connections.set(id, { ws, status: 'CONNECTED', lastPing: new Date() });
         this.connectingBookmakers.delete(id);
         
-        // Enviar api_message (JSON directo)
+        // Enviar api_message con la API key del .env
         try {
-          const apiMsg = JSON.parse(api_message);
+          const apiKey = process.env.API_WEBSOCKET_KEY || 'e8f7a3c9d2b6e1f4a7c3d8b2e9f1a6c4d7b3e8f2a5c9d6b1e4f7a2c8d3b9e5f1a6c2d7b4e9f3a8c5d1b6e2f7a9c4d8b3e1f5a7c6d2b9e4f8a3c1d5b7e6f2a9';
+          const apiMsg = {
+            c: 0,
+            a: 0,
+            p: {
+              api: '1.8.4',
+              cl: 'JavaScript',
+              key: apiKey
+            }
+          };
           ws.send(JSON.stringify(apiMsg));
-          console.log(`📤 [GOBET] Handshake enviado para bookmaker ${id}:`, apiMsg);
+          console.log(`📤 [GOBET] Handshake con API key enviado para bookmaker ${id}`);
         } catch (error) {
-          console.error(`❌ [GOBET] Error parseando api_message:`, error);
+          console.error(`❌ [GOBET] Error enviando handshake:`, error);
         }
       });
 

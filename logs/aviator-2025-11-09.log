@@ -133,3 +133,15 @@
 {"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 7/10) in 60647ms","timestamp":"2025-11-09 21:43:09"}
 {"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-09 21:43:10"}
 {"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-09 21:43:11"}
+{"level":"info","message":"Gateway Aviator inicializado","timestamp":"2025-11-09 21:43:19"}
+{"level":"info","message":"Cliente conectado: 0R910MT4DdJvm4zbAAAB","timestamp":"2025-11-09 21:43:22"}
+{"level":"info","message":"Cliente 0R910MT4DdJvm4zbAAAB unido a bookmaker:1","timestamp":"2025-11-09 21:43:22"}
+{"level":"info","message":"📤 Historial enviado al cliente 0R910MT4DdJvm4zbAAAB: 100 rondas","timestamp":"2025-11-09 21:43:23"}
+{"level":"info","message":"Cliente 0R910MT4DdJvm4zbAAAB unido exitosamente a la sala bookmaker:1","timestamp":"2025-11-09 21:43:23"}
+{"level":"info","message":"Cliente desconectado: 0R910MT4DdJvm4zbAAAB","timestamp":"2025-11-09 21:46:40"}
+{"level":"info","message":"Cliente 0R910MT4DdJvm4zbAAAB saliendo de todas las salas de bookmaker:1","timestamp":"2025-11-09 21:46:40"}
+{"level":"info","message":"Limpieza completada para cliente 0R910MT4DdJvm4zbAAAB","timestamp":"2025-11-09 21:46:40"}
+{"level":"info","message":"Cliente conectado: VA0Fw0FUD-Rke3LpAAAD","timestamp":"2025-11-09 21:46:45"}
+{"level":"info","message":"Cliente VA0Fw0FUD-Rke3LpAAAD unido a bookmaker:1","timestamp":"2025-11-09 21:46:45"}
+{"level":"info","message":"📤 Historial enviado al cliente VA0Fw0FUD-Rke3LpAAAD: 100 rondas","timestamp":"2025-11-09 21:46:46"}
+{"level":"info","message":"Cliente VA0Fw0FUD-Rke3LpAAAD unido exitosamente a la sala bookmaker:1","timestamp":"2025-11-09 21:46:46"}
