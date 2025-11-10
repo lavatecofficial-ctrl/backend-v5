@@ -9,6 +9,11 @@
             "date": 1762674136018,
             "name": "logs\\aviator-error-2025-11-09.log",
             "hash": "a767ad70f69c0e727e783a5828dc12cfc561ecad2efd41020e9706ef564ae4f8"
+        },
+        {
+            "date": 1762752902050,
+            "name": "logs\\aviator-error-2025-11-10.log",
+            "hash": "0f8a3020084d49c96cf4e946d879d08d66d3e8eb37aff54dfbee23fccf22d361"
         }
     ],
     "hashType": "sha256"

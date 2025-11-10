@@ -14,6 +14,11 @@
             "date": 1762675520736,
             "name": "logs\\spaceman-2025-11-09.log.1",
             "hash": "d4f2184efd80fb069aef70db9e2a35b45f03e70a34fe03e36baf230d9d3e61fe"
+        },
+        {
+            "date": 1762752902061,
+            "name": "logs\\spaceman-2025-11-10.log",
+            "hash": "f001d62e7819b1e2fb1ef3a885b3d38052604748b22083eacbab32b5590c4007"
         }
     ],
     "hashType": "sha256"

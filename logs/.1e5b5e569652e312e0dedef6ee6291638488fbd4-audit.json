@@ -9,6 +9,11 @@
             "date": 1762674136033,
             "name": "logs\\spaceman-error-2025-11-09.log",
             "hash": "333d59798fce9976eaa15f659796afc98f59c6e08a4c9ccbf57c286711e4bf1c"
+        },
+        {
+            "date": 1762752902059,
+            "name": "logs\\spaceman-error-2025-11-10.log",
+            "hash": "edb66e11bf2d1525a029250403490f46b73e175c1aa45908290a5c92b6700892"
         }
     ],
     "hashType": "sha256"

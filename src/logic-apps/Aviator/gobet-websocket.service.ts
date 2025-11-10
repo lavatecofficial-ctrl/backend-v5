@@ -222,6 +222,11 @@ export class GoBetWebSocketService {
             });
           }
           
+          // Procesar mensajes del juego para guardar rondas
+          if (obj.a === 13 && obj.c === 1) {
+            await this.processGameMessage(id, obj.p?.c, obj.p?.p, server);
+          }
+          
           // Enviar auth_message después de recibir respuesta del handshake (c=0, a=0)
           if (!(ws as any).authSent && obj.c === 0 && obj.a === 0) {
             try {
@@ -299,6 +304,139 @@ export class GoBetWebSocketService {
       this.connections.set(id, { ws: null, status: 'DISCONNECTED', lastPing: null });
       this.connectingBookmakers.delete(id);
     }
+  }
+
+  private async processGameMessage(id: number, command: string, payload: any, server: any): Promise<void> {
+    const roundData = this.roundData.get(id);
+    if (!roundData) return;
+
+    try {
+      switch (command) {
+        case 'changeState':
+          // Detectar fin de ronda (state 3 = END)
+          if (payload.state === 3 && roundData.roundId && roundData.maxMultiplier > 0) {
+            await this.saveRoundData(id, roundData.maxMultiplier);
+            
+            // Emitir historial actualizado
+            if (server) {
+              const bookmaker = await this.bookmakerRepository.findOne({ where: { id } });
+              if (bookmaker) {
+                const history = await this.aviatorWsRepository.query(`
+                  SELECT * FROM aviator_rounds 
+                  WHERE bookmaker_id = $1 
+                  ORDER BY created_at DESC 
+                  LIMIT 100
+                `, [id]);
+                
+                server.to(`bookmaker:${id}`).emit('history', { rounds: history });
+              }
+            }
+          }
+          
+          // Actualizar roundId
+          if (payload.roundId) {
+            roundData.roundId = payload.roundId;
+          }
+          
+          // Resetear datos al empezar nueva ronda (state 1 = BET)
+          if (payload.state === 1) {
+            this.resetRoundData(id);
+          }
+          break;
+          
+        case 'x':
+          // Actualizar multiplicador
+          if (payload.x) {
+            roundData.currentMultiplier = payload.x;
+            if (payload.crashX) {
+              roundData.maxMultiplier = payload.crashX;
+            }
+          }
+          break;
+          
+        case 'updateCurrentBets':
+          // Actualizar apuestas
+          if (payload.betsCount !== undefined) {
+            roundData.betsCount = payload.betsCount;
+          }
+          if (payload.bets && Array.isArray(payload.bets)) {
+            roundData.totalBetAmount = payload.bets.reduce((sum: number, bet: any) => sum + (bet.bet || 0), 0);
+            roundData.onlinePlayers = new Set(payload.bets.map((bet: any) => bet.player_id)).size;
+          }
+          break;
+          
+        case 'updateCurrentCashOuts':
+          // Actualizar cashouts
+          if (payload.cashouts && Array.isArray(payload.cashouts)) {
+            payload.cashouts.forEach((cashout: any) => {
+              const cashoutId = `${cashout.betId}`;
+              if (!roundData.cashoutRecords.has(cashoutId)) {
+                roundData.cashoutRecords.add(cashoutId);
+                roundData.totalCashout += cashout.win || 0;
+              }
+            });
+          }
+          break;
+      }
+    } catch (error) {
+      console.error(`❌ [GOBET] Error procesando mensaje ${command}:`, error);
+    }
+  }
+
+  private async saveRoundData(bookmaker_id: number, crashX: number): Promise<void> {
+    const roundData = this.roundData.get(bookmaker_id);
+    if (!roundData || !roundData.roundId) return;
+
+    try {
+      const casinoProfit = roundData.totalBetAmount - roundData.totalCashout;
+      const lossPercentage = roundData.totalBetAmount > 0 ? 
+        ((casinoProfit / roundData.totalBetAmount) * 100) : 0;
+
+      await this.aviatorWsRepository.query(`
+        INSERT INTO aviator_rounds (
+          bookmaker_id, 
+          round_id, 
+          bets_count, 
+          total_bet_amount, 
+          online_players, 
+          max_multiplier, 
+          total_cashout, 
+          casino_profit, 
+          loss_percentage, 
+          created_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      `, [
+        bookmaker_id,
+        roundData.roundId,
+        roundData.betsCount,
+        roundData.totalBetAmount,
+        roundData.onlinePlayers,
+        crashX,
+        roundData.totalCashout,
+        casinoProfit,
+        lossPercentage,
+        new Date()
+      ]);
+
+      console.log(`✅ [GOBET] Ronda ${roundData.roundId} guardada - Crash: ${crashX}x`);
+    } catch (error) {
+      console.error(`❌ [GOBET] Error guardando ronda:`, error);
+    }
+  }
+
+  private resetRoundData(bookmaker_id: number): void {
+    const current = this.roundData.get(bookmaker_id);
+    this.roundData.set(bookmaker_id, {
+      betsCount: 0,
+      totalBetAmount: 0,
+      onlinePlayers: 0,
+      roundId: current?.roundId || null,
+      maxMultiplier: 0,
+      currentMultiplier: 0,
+      totalCashout: 0,
+      cashoutRecords: new Set(),
+      gameState: 'Bet',
+    });
   }
 
   getConnectionsStatus() {
