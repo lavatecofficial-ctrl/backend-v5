@@ -48,3 +48,30 @@
 {"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 01:54:58"}
 {"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-10 01:54:58"}
 {"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-10 01:54:58"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 1 (Red)","timestamp":"2025-11-10 02:00:39"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-10 02:00:39"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 35 (Black)","timestamp":"2025-11-10 02:00:40"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-10 02:00:41"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-10 11:49:27"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-10 11:49:27"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 11:49:28"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 11:49:28"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-10 11:49:28"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-10 11:49:28"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 11:49:28"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 11:49:28"}
+{"level":"info","message":"WebSocket closed for roulette 6 (code: 1006, reason: )","timestamp":"2025-11-10 11:50:32"}
+{"level":"info","message":"Attempting to reconnect for roulette 6 (Attempt 1/3)","timestamp":"2025-11-10 11:50:32"}
+{"level":"info","message":"Closed existing WebSocket for roulette 6","timestamp":"2025-11-10 11:50:33"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 11:50:33"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 11:50:33"}
+{"level":"info","message":"WebSocket closed for roulette 6 (code: 1006, reason: )","timestamp":"2025-11-10 12:11:24"}
+{"level":"info","message":"Attempting to reconnect for roulette 6 (Attempt 2/3)","timestamp":"2025-11-10 12:11:24"}
+{"level":"info","message":"Closed existing WebSocket for roulette 6","timestamp":"2025-11-10 12:11:26"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 12:11:27"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 12:11:27"}
+{"level":"info","message":"WebSocket closed for roulette 5 (code: 1006, reason: )","timestamp":"2025-11-10 12:27:37"}
+{"level":"info","message":"Attempting to reconnect for roulette 5 (Attempt 1/3)","timestamp":"2025-11-10 12:27:37"}
+{"level":"info","message":"Closed existing WebSocket for roulette 5","timestamp":"2025-11-10 12:27:38"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 12:27:39"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 12:27:39"}

@@ -1831,3 +1831,7 @@
 {"level":"info","message":"Cliente 2Hz-H3SF1JCFAnbmAAAB unido a bookmaker:1","timestamp":"2025-11-10 01:54:58"}
 {"level":"info","message":"📤 Historial enviado al cliente 2Hz-H3SF1JCFAnbmAAAB: 100 rondas","timestamp":"2025-11-10 01:54:58"}
 {"level":"info","message":"Cliente 2Hz-H3SF1JCFAnbmAAAB unido exitosamente a la sala bookmaker:1","timestamp":"2025-11-10 01:54:58"}
+{"level":"info","message":"Cliente desconectado: 2Hz-H3SF1JCFAnbmAAAB","timestamp":"2025-11-10 02:01:30"}
+{"level":"info","message":"Cliente 2Hz-H3SF1JCFAnbmAAAB saliendo de todas las salas de bookmaker:1","timestamp":"2025-11-10 02:01:30"}
+{"level":"info","message":"Limpieza completada para cliente 2Hz-H3SF1JCFAnbmAAAB","timestamp":"2025-11-10 02:01:30"}
+{"level":"info","message":"Gateway Aviator inicializado","timestamp":"2025-11-10 11:49:27"}

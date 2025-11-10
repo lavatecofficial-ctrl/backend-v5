@@ -266,7 +266,6 @@ export class AviatorWebSocketService {
             }
 
             obj = decodedMessage;
-            console.log(`📥 [LEGACY] Mensaje decodificado para bookmaker ${id}`);
           } else {
             // Protocolo nuevo: parsear JSON
             const text = data.toString('utf8');
