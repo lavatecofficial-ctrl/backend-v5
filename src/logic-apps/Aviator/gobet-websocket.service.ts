@@ -432,6 +432,7 @@ export class GoBetWebSocketService {
     online_players: number;
     created_at: string;
   }>> {
+    // Primero obtener las últimas N rondas en DESC, luego invertir a ASC
     const rows = await this.aviatorWsRepository.query(
       `SELECT round_id, max_multiplier, total_bet_amount, total_cashout, casino_profit, bets_count, online_players, created_at
        FROM aviator_rounds
@@ -441,7 +442,8 @@ export class GoBetWebSocketService {
       [bookmakerId, limit]
     );
 
-    return rows.map((r: any) => ({
+    // Invertir para que queden en orden ASC (más antiguas primero)
+    return rows.reverse().map((r: any) => ({
       round_id: r.round_id,
       max_multiplier: Number(r.max_multiplier),
       total_bet_amount: Number(r.total_bet_amount),

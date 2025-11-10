@@ -1,2 +1,123 @@
 {"level":"info","message":"Gateway Aviator inicializado","timestamp":"2025-11-10 00:35:03"}
 {"level":"info","message":"Gateway Aviator inicializado","timestamp":"2025-11-10 00:41:22"}
+{"level":"info","message":"✅ Inicializando conexiones WebSocket de Aviator","timestamp":"2025-11-10 00:47:58"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:47:58"}
+{"level":"info","message":"✅ Inicializando conexiones WebSocket de GoBet (protocolo ws://)","timestamp":"2025-11-10 00:47:58"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:47:58"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:47:59"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:48:00"}
+{"level":"info","message":"Cliente conectado: fLFYYgJVpQL3YuAaAAAB","timestamp":"2025-11-10 00:48:05"}
+{"level":"info","message":"Cliente fLFYYgJVpQL3YuAaAAAB unido a bookmaker:1","timestamp":"2025-11-10 00:48:05"}
+{"level":"info","message":"📤 Historial enviado al cliente fLFYYgJVpQL3YuAaAAAB: 100 rondas","timestamp":"2025-11-10 00:48:05"}
+{"level":"info","message":"Cliente fLFYYgJVpQL3YuAaAAAB unido exitosamente a la sala bookmaker:1","timestamp":"2025-11-10 00:48:05"}
+{"level":"info","message":"WebSocket closed for bookmaker 3 (code: 1000, reason: )","timestamp":"2025-11-10 00:48:31"}
+{"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 1/10) in 3225ms","timestamp":"2025-11-10 00:48:31"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-10 00:48:31"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:48:32"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:48:34"}
+{"level":"info","message":"Closed existing WebSocket for bookmaker 3","timestamp":"2025-11-10 00:48:34"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:48:34"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:48:34"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:48:35"}
+{"level":"info","message":"WebSocket closed for bookmaker 3 (code: 1000, reason: )","timestamp":"2025-11-10 00:49:11"}
+{"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 2/10) in 6259ms","timestamp":"2025-11-10 00:49:11"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-10 00:49:11"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:49:12"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:49:17"}
+{"level":"info","message":"Closed existing WebSocket for bookmaker 3","timestamp":"2025-11-10 00:49:17"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:49:17"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:49:18"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:49:18"}
+{"level":"info","message":"WebSocket closed for bookmaker 3 (code: 1000, reason: )","timestamp":"2025-11-10 00:49:51"}
+{"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 3/10) in 12957ms","timestamp":"2025-11-10 00:49:51"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-10 00:49:51"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:49:52"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:50:04"}
+{"level":"info","message":"Closed existing WebSocket for bookmaker 3","timestamp":"2025-11-10 00:50:04"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:50:04"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:50:04"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:50:05"}
+{"level":"info","message":"Cliente desconectado: fLFYYgJVpQL3YuAaAAAB","timestamp":"2025-11-10 00:50:18"}
+{"level":"info","message":"Cliente fLFYYgJVpQL3YuAaAAAB saliendo de todas las salas de bookmaker:1","timestamp":"2025-11-10 00:50:18"}
+{"level":"info","message":"Limpieza completada para cliente fLFYYgJVpQL3YuAaAAAB","timestamp":"2025-11-10 00:50:18"}
+{"level":"info","message":"Cliente conectado: WAD8r1szkfo08Go4AAAD","timestamp":"2025-11-10 00:50:18"}
+{"level":"info","message":"Cliente WAD8r1szkfo08Go4AAAD unido a bookmaker:1","timestamp":"2025-11-10 00:50:18"}
+{"level":"info","message":"📤 Historial enviado al cliente WAD8r1szkfo08Go4AAAD: 100 rondas","timestamp":"2025-11-10 00:50:19"}
+{"level":"info","message":"Cliente WAD8r1szkfo08Go4AAAD unido exitosamente a la sala bookmaker:1","timestamp":"2025-11-10 00:50:19"}
+{"level":"info","message":"WebSocket closed for bookmaker 3 (code: 1000, reason: )","timestamp":"2025-11-10 00:50:41"}
+{"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 4/10) in 24811ms","timestamp":"2025-11-10 00:50:41"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-10 00:50:41"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:50:42"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:51:05"}
+{"level":"info","message":"Closed existing WebSocket for bookmaker 3","timestamp":"2025-11-10 00:51:05"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:51:06"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:51:06"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:51:07"}
+{"level":"info","message":"Cliente desconectado: WAD8r1szkfo08Go4AAAD","timestamp":"2025-11-10 00:51:16"}
+{"level":"info","message":"Cliente WAD8r1szkfo08Go4AAAD saliendo de todas las salas de bookmaker:1","timestamp":"2025-11-10 00:51:16"}
+{"level":"info","message":"Limpieza completada para cliente WAD8r1szkfo08Go4AAAD","timestamp":"2025-11-10 00:51:16"}
+{"level":"info","message":"Cliente conectado: lZOodavu7UeYfhV8AAAF","timestamp":"2025-11-10 00:51:18"}
+{"level":"info","message":"Cliente lZOodavu7UeYfhV8AAAF unido a bookmaker:1","timestamp":"2025-11-10 00:51:18"}
+{"level":"info","message":"📤 Historial enviado al cliente lZOodavu7UeYfhV8AAAF: 100 rondas","timestamp":"2025-11-10 00:51:18"}
+{"level":"info","message":"Cliente lZOodavu7UeYfhV8AAAF unido exitosamente a la sala bookmaker:1","timestamp":"2025-11-10 00:51:18"}
+{"level":"info","message":"WebSocket closed for bookmaker 3 (code: 1000, reason: )","timestamp":"2025-11-10 00:51:41"}
+{"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 5/10) in 48148ms","timestamp":"2025-11-10 00:51:41"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-10 00:51:41"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:51:42"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:52:29"}
+{"level":"info","message":"Closed existing WebSocket for bookmaker 3","timestamp":"2025-11-10 00:52:29"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:52:30"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:52:30"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:52:30"}
+{"level":"info","message":"Gateway Aviator inicializado","timestamp":"2025-11-10 00:52:49"}
+{"level":"info","message":"Cliente conectado: VuX3Fk8feC0sprGoAAAB","timestamp":"2025-11-10 00:52:51"}
+{"level":"info","message":"Cliente VuX3Fk8feC0sprGoAAAB unido a bookmaker:1","timestamp":"2025-11-10 00:52:51"}
+{"level":"info","message":"📤 Historial enviado al cliente VuX3Fk8feC0sprGoAAAB: 100 rondas","timestamp":"2025-11-10 00:52:51"}
+{"level":"info","message":"Cliente VuX3Fk8feC0sprGoAAAB unido exitosamente a la sala bookmaker:1","timestamp":"2025-11-10 00:52:51"}
+{"level":"info","message":"Cliente desconectado: VuX3Fk8feC0sprGoAAAB","timestamp":"2025-11-10 00:53:16"}
+{"level":"info","message":"Cliente VuX3Fk8feC0sprGoAAAB saliendo de todas las salas de bookmaker:1","timestamp":"2025-11-10 00:53:16"}
+{"level":"info","message":"Limpieza completada para cliente VuX3Fk8feC0sprGoAAAB","timestamp":"2025-11-10 00:53:16"}
+{"level":"info","message":"✅ Inicializando conexiones WebSocket de Aviator","timestamp":"2025-11-10 00:53:23"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:53:23"}
+{"level":"info","message":"✅ Inicializando conexiones WebSocket de GoBet (protocolo ws://)","timestamp":"2025-11-10 00:53:23"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:53:24"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:53:24"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:53:25"}
+{"level":"info","message":"Cliente conectado: McKJZh9RBIl0iQlDAAAD","timestamp":"2025-11-10 00:53:31"}
+{"level":"info","message":"Cliente McKJZh9RBIl0iQlDAAAD unido a bookmaker:1","timestamp":"2025-11-10 00:53:31"}
+{"level":"info","message":"📤 Historial enviado al cliente McKJZh9RBIl0iQlDAAAD: 100 rondas","timestamp":"2025-11-10 00:53:31"}
+{"level":"info","message":"Cliente McKJZh9RBIl0iQlDAAAD unido exitosamente a la sala bookmaker:1","timestamp":"2025-11-10 00:53:31"}
+{"level":"info","message":"WebSocket closed for bookmaker 3 (code: 1000, reason: )","timestamp":"2025-11-10 00:54:01"}
+{"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 1/10) in 3052ms","timestamp":"2025-11-10 00:54:01"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-10 00:54:01"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:54:02"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:54:04"}
+{"level":"info","message":"Closed existing WebSocket for bookmaker 3","timestamp":"2025-11-10 00:54:04"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:54:04"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:54:04"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:54:05"}
+{"level":"info","message":"WebSocket closed for bookmaker 3 (code: 1000, reason: )","timestamp":"2025-11-10 00:54:41"}
+{"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 2/10) in 6031ms","timestamp":"2025-11-10 00:54:41"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-10 00:54:41"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:54:42"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:54:47"}
+{"level":"info","message":"Closed existing WebSocket for bookmaker 3","timestamp":"2025-11-10 00:54:47"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:54:47"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:54:48"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:54:48"}
+{"level":"info","message":"Cliente desconectado: McKJZh9RBIl0iQlDAAAD","timestamp":"2025-11-10 00:55:01"}
+{"level":"info","message":"Cliente McKJZh9RBIl0iQlDAAAD saliendo de todas las salas de bookmaker:1","timestamp":"2025-11-10 00:55:01"}
+{"level":"info","message":"Limpieza completada para cliente McKJZh9RBIl0iQlDAAAD","timestamp":"2025-11-10 00:55:01"}
+{"level":"info","message":"Cliente conectado: LG99K7fRLWvmq66ZAAAF","timestamp":"2025-11-10 00:55:06"}
+{"level":"info","message":"Cliente LG99K7fRLWvmq66ZAAAF unido a bookmaker:3","timestamp":"2025-11-10 00:55:06"}
+{"level":"info","message":"📤 Historial enviado al cliente LG99K7fRLWvmq66ZAAAF: 100 rondas","timestamp":"2025-11-10 00:55:06"}
+{"level":"info","message":"Cliente LG99K7fRLWvmq66ZAAAF unido exitosamente a la sala bookmaker:3","timestamp":"2025-11-10 00:55:06"}
+{"level":"info","message":"WebSocket closed for bookmaker 3 (code: 1000, reason: )","timestamp":"2025-11-10 00:55:21"}
+{"level":"info","message":"Attempting to reconnect for bookmaker 3 (Attempt 3/10) in 12015ms","timestamp":"2025-11-10 00:55:21"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: DISCONNECTED","timestamp":"2025-11-10 00:55:21"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:55:22"}
+{"level":"info","message":"🔑 [DEBUG] Bookmaker 3 - auth_message: gALaEgADAAFjAgAAAWEDAAEAAXASAAQAAnpuCAASYXZpYXRvcl...","timestamp":"2025-11-10 00:55:33"}
+{"level":"info","message":"Closed existing WebSocket for bookmaker 3","timestamp":"2025-11-10 00:55:33"}
+{"level":"info","message":"WebSocket connected for bookmaker 3","timestamp":"2025-11-10 00:55:33"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTING","timestamp":"2025-11-10 00:55:34"}
+{"level":"info","message":"Estado WebSocket actualizado en BD para bookmaker 3: CONNECTED","timestamp":"2025-11-10 00:55:35"}
