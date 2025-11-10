@@ -212,6 +212,11 @@ export class GoBetWebSocketService {
           const text = data.toString('utf8');
           const obj = JSON.parse(text);
           
+          // Log solo para changeState (debug temporal)
+          if (obj.a === 13 && obj.c === 1 && obj.p?.c === 'changeState') {
+            console.log(`🎮 [GOBET] changeState para bookmaker ${id}:`, JSON.stringify(obj.p.p));
+          }
+          
           // Emitir RAW inmediatamente
           const server = this.gateway.getServer();
           if (server) {
