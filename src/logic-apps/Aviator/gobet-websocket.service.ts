@@ -212,17 +212,6 @@ export class GoBetWebSocketService {
           const text = data.toString('utf8');
           const obj = JSON.parse(text);
           
-          // Log temporal para ver qué comandos llegan
-          if (obj.a === 13 && obj.c === 1) {
-            const command = obj.p?.c;
-            if (Math.random() < 0.1) { // Solo 10% de los mensajes para no saturar
-              console.log(`📨 [GOBET-DEBUG] Comando: ${command}, Bookmaker: ${id}`);
-            }
-            if (command === 'changeState') {
-              console.log(`🎮 [GOBET] changeState:`, JSON.stringify(obj.p.p));
-            }
-          }
-          
           // Emitir RAW inmediatamente
           const server = this.gateway.getServer();
           if (server) {

@@ -2947,3 +2947,19 @@
 {"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 22:00:19"}
 {"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 22:00:19"}
 {"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 22:00:19"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 22:50:37"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 22:50:37"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 22:50:38"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 22:50:38"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 22:50:38"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 22:50:38"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 22:50:38"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 22:50:38"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 23:08:48"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 23:08:48"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 23:08:49"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 23:08:49"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 23:08:49"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 23:08:49"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 23:08:49"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 23:08:49"}
