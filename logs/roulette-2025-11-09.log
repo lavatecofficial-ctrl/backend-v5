@@ -2715,3 +2715,153 @@
 {"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 15:47:49"}
 {"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 27 (Red)","timestamp":"2025-11-09 15:48:08"}
 {"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 15:48:08"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 22 (Black)","timestamp":"2025-11-09 16:01:46"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:01:46"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 5 (Red)","timestamp":"2025-11-09 16:04:39"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:04:39"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 29 (Black)","timestamp":"2025-11-09 16:04:44"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:04:44"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 6 (Black)","timestamp":"2025-11-09 16:05:11"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:05:11"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 10 (Black)","timestamp":"2025-11-09 16:05:22"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 6 (Black)","timestamp":"2025-11-09 16:05:22"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:05:22"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:05:22"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 28 (Black)","timestamp":"2025-11-09 16:06:01"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:06:01"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 30 (Red)","timestamp":"2025-11-09 16:06:01"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:06:01"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 35 (Black)","timestamp":"2025-11-09 16:06:06"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:06:06"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 30 (Red)","timestamp":"2025-11-09 16:06:42"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:06:42"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 19 (Red)","timestamp":"2025-11-09 16:06:50"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:06:50"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 8 (Black)","timestamp":"2025-11-09 16:06:51"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:06:51"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 22 (Black)","timestamp":"2025-11-09 16:07:20"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:07:20"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 31 (Black)","timestamp":"2025-11-09 16:07:34"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:07:34"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 29 (Black)","timestamp":"2025-11-09 16:07:36"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:07:37"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 26 (Black)","timestamp":"2025-11-09 16:08:02"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:08:02"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 8 (Black)","timestamp":"2025-11-09 16:08:17"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:08:18"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 7 (Red)","timestamp":"2025-11-09 16:08:36"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:08:37"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 24 (Black)","timestamp":"2025-11-09 16:08:59"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:08:59"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 31 (Black)","timestamp":"2025-11-09 16:09:12"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:09:12"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 10 (Black)","timestamp":"2025-11-09 16:09:43"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:09:43"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 5 (Red)","timestamp":"2025-11-09 16:09:51"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:09:51"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 8 (Black)","timestamp":"2025-11-09 16:10:05"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:10:05"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 19 (Red)","timestamp":"2025-11-09 16:10:28"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:10:28"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 8 (Black)","timestamp":"2025-11-09 16:10:30"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:10:30"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 19 (Red)","timestamp":"2025-11-09 16:10:50"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:10:50"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 22 (Black)","timestamp":"2025-11-09 16:11:09"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:11:10"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 32 (Red)","timestamp":"2025-11-09 16:11:10"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:11:10"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 27 (Red)","timestamp":"2025-11-09 16:11:39"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:11:40"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 20 (Black)","timestamp":"2025-11-09 16:11:53"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:11:53"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 21 (Red)","timestamp":"2025-11-09 16:12:27"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:12:27"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 11 (Black)","timestamp":"2025-11-09 16:12:27"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:12:27"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 29 (Black)","timestamp":"2025-11-09 16:12:36"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:12:36"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 14 (Red)","timestamp":"2025-11-09 16:13:06"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:13:06"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 5 (Red)","timestamp":"2025-11-09 16:13:19"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:13:19"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 1 (Red)","timestamp":"2025-11-09 16:13:21"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:13:21"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 20 (Black)","timestamp":"2025-11-09 16:13:44"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:13:44"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 19 (Red)","timestamp":"2025-11-09 16:14:04"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:14:04"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 21 (Red)","timestamp":"2025-11-09 16:14:11"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:14:11"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 7 (Red)","timestamp":"2025-11-09 16:14:24"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:14:25"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 10 (Black)","timestamp":"2025-11-09 16:14:46"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:14:47"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 28 (Black)","timestamp":"2025-11-09 16:15:02"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:15:02"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 6 (Black)","timestamp":"2025-11-09 16:15:31"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:15:32"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 36 (Red)","timestamp":"2025-11-09 16:15:40"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:15:40"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 14 (Red)","timestamp":"2025-11-09 16:15:45"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:15:45"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 30 (Red)","timestamp":"2025-11-09 16:16:15"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:16:16"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 35 (Black)","timestamp":"2025-11-09 16:16:17"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:16:17"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 13 (Black)","timestamp":"2025-11-09 16:16:35"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:16:35"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 7 (Red)","timestamp":"2025-11-09 16:16:57"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 7 (Red)","timestamp":"2025-11-09 16:16:57"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:16:57"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:16:57"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 34 (Red)","timestamp":"2025-11-09 16:17:25"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:17:25"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 3 (Red)","timestamp":"2025-11-09 16:17:39"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:17:39"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 1 (Red)","timestamp":"2025-11-09 16:18:14"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:18:14"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 33 (Black)","timestamp":"2025-11-09 16:18:16"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:18:16"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 20 (Black)","timestamp":"2025-11-09 16:18:22"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:18:22"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 34 (Red)","timestamp":"2025-11-09 16:18:50"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:18:50"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 30 (Red)","timestamp":"2025-11-09 16:19:06"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:19:07"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 13 (Black)","timestamp":"2025-11-09 16:19:07"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:19:07"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 27 (Red)","timestamp":"2025-11-09 16:19:31"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:19:31"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 9 (Red)","timestamp":"2025-11-09 16:19:45"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:19:45"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 22 (Black)","timestamp":"2025-11-09 16:19:57"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:19:57"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 35 (Black)","timestamp":"2025-11-09 16:20:11"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:20:11"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 35 (Black)","timestamp":"2025-11-09 16:20:30"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:20:31"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 33 (Black)","timestamp":"2025-11-09 16:20:50"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:20:51"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 9 (Red)","timestamp":"2025-11-09 16:21:14"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:21:14"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 3 (Red)","timestamp":"2025-11-09 16:21:30"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:21:30"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 34 (Red)","timestamp":"2025-11-09 16:21:46"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:21:46"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 13 (Black)","timestamp":"2025-11-09 16:21:57"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:21:58"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 8 (Black)","timestamp":"2025-11-09 16:22:08"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:22:08"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 12 (Red)","timestamp":"2025-11-09 16:22:39"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:22:39"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 10 (Black)","timestamp":"2025-11-09 16:22:42"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:22:42"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 29 (Black)","timestamp":"2025-11-09 16:22:47"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:22:47"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 5: 15 (Black)","timestamp":"2025-11-09 16:23:25"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 5: Error","timestamp":"2025-11-09 16:23:25"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 4: 16 (Red)","timestamp":"2025-11-09 16:23:28"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-09 16:23:28"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 6 (Black)","timestamp":"2025-11-09 16:23:34"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 16:23:34"}
