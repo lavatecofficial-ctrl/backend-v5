@@ -2881,3 +2881,69 @@
 {"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:43:20"}
 {"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:43:20"}
 {"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:43:20"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 21:50:09"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 21:50:09"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:50:10"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:50:10"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:50:10"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:50:10"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:50:10"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:50:10"}
+{"level":"info","message":"📡 Nueva ronda de ruleta emitida para bookmaker 6: 15 (Black)","timestamp":"2025-11-09 21:53:50"}
+{"level":"error","message":"Roulette prediction failed for bookmaker 6: Error","timestamp":"2025-11-09 21:53:50"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 21:55:16"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 21:55:16"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:55:17"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:55:17"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:55:17"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:55:17"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:55:17"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:55:17"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 21:55:39"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 21:55:39"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:55:39"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:55:39"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:55:39"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:55:39"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:55:39"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:55:39"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 21:56:34"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 21:56:34"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:56:35"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:56:35"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:56:35"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:56:35"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:56:35"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:56:35"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 21:57:24"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 21:57:24"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:57:24"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:57:24"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:57:25"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:57:25"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:57:25"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:57:25"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 21:57:37"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 21:57:37"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:57:38"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:57:38"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:57:38"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:57:38"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:57:38"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:57:38"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 21:58:02"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 21:58:02"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:58:03"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 21:58:03"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:58:03"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 21:58:03"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:58:03"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 21:58:03"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-09 22:00:18"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-09 22:00:18"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 22:00:19"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-09 22:00:19"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 22:00:19"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-09 22:00:19"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 22:00:19"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-09 22:00:19"}

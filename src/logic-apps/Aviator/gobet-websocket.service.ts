@@ -180,8 +180,12 @@ export class GoBetWebSocketService {
         this.roundData.delete(id);
       }
 
-      console.log(`🔌 [GOBET] Conectando a ${url_websocket} para bookmaker ${id}`);
-      const ws = new WebSocket(url_websocket, [], { headers });
+      // Agregar el token de API como query parameter en la URL
+      const apiKey = process.env.API_WEBSOCKET_KEY || 'e8f7a3c9d2b6e1f4a7c3d8b2e9f1a6c4d7b3e8f2a5c9d6b1e4f7a2c8d3b9e5f1a6c2d7b4e9f3a8c5d1b6e2f7a9c4d8b3e1f5a7c6d2b9e4f8a3c1d5b7e6f2a9';
+      const wsUrl = `${url_websocket}?token=${apiKey}`;
+      
+      console.log(`🔌 [GOBET] Conectando a ${wsUrl.substring(0, 60)}... para bookmaker ${id}`);
+      const ws = new WebSocket(wsUrl, [], { headers });
 
       this.connections.set(id, { ws, status: 'CONNECTING', lastPing: null });
       this.roundData.set(id, {
@@ -200,32 +204,13 @@ export class GoBetWebSocketService {
         console.log(`✅ [GOBET] WebSocket conectado para bookmaker ${id}`);
         this.connections.set(id, { ws, status: 'CONNECTED', lastPing: new Date() });
         this.connectingBookmakers.delete(id);
-        
-        // Enviar api_message con la API key del .env
-        try {
-          const apiKey = process.env.API_WEBSOCKET_KEY || 'e8f7a3c9d2b6e1f4a7c3d8b2e9f1a6c4d7b3e8f2a5c9d6b1e4f7a2c8d3b9e5f1a6c2d7b4e9f3a8c5d1b6e2f7a9c4d8b3e1f5a7c6d2b9e4f8a3c1d5b7e6f2a9';
-          const apiMsg = {
-            c: 0,
-            a: 0,
-            p: {
-              api: '1.8.4',
-              cl: 'JavaScript',
-              key: apiKey
-            }
-          };
-          ws.send(JSON.stringify(apiMsg));
-          console.log(`📤 [GOBET] Handshake con API key enviado para bookmaker ${id}`);
-        } catch (error) {
-          console.error(`❌ [GOBET] Error enviando handshake:`, error);
-        }
+        console.log(`👂 [GOBET] Escuchando mensajes del servidor (sin enviar handshake)...`);
       });
 
       ws.on('message', async (data: Buffer) => {
         try {
           const text = data.toString('utf8');
           const obj = JSON.parse(text);
-          
-          console.log(`📥 [GOBET] Mensaje recibido de bookmaker ${id}:`, JSON.stringify(obj).substring(0, 200));
           
           // Emitir RAW inmediatamente
           const server = this.gateway.getServer();
@@ -235,10 +220,6 @@ export class GoBetWebSocketService {
               data: obj,
               protocol: 'gobet'
             });
-            
-            if (Math.random() < 0.05) {
-              console.log(`📡 [GOBET] Emitiendo aviator_raw para bookmaker ${id}`);
-            }
           }
           
           // Enviar auth_message después de recibir respuesta del handshake (c=0, a=0)
@@ -273,10 +254,6 @@ export class GoBetWebSocketService {
           }
           
           this.connections.set(id, { ws, status: 'CONNECTED', lastPing: new Date() });
-          
-          // Procesar datos del juego
-          await this.processGameData(id, obj);
-          
         } catch (error) {
           console.error(`❌ [GOBET] Error procesando mensaje de bookmaker ${id}:`, error);
         }
@@ -321,23 +298,6 @@ export class GoBetWebSocketService {
       console.error(`❌ [GOBET] Error conectando bookmaker ${id}:`, error);
       this.connections.set(id, { ws: null, status: 'DISCONNECTED', lastPing: null });
       this.connectingBookmakers.delete(id);
-    }
-  }
-
-  private async processGameData(id: number, obj: any): Promise<void> {
-    const roundData = this.roundData.get(id);
-    if (!roundData) return;
-
-    // Procesar según estructura del mensaje de GoBet
-    // Adaptar según los mensajes reales que recibas
-    if (obj.p && obj.p.p) {
-      const gameData = obj.p.p;
-      const command = obj.p.c;
-
-      console.log(`🎮 [GOBET] Comando: ${command}, Round: ${roundData.roundId}`);
-
-      // Aquí procesar comandos específicos de GoBet
-      // Esto dependerá de la estructura real de los mensajes
     }
   }
 
