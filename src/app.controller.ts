@@ -3,7 +3,6 @@ import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { AviatorWebSocketService } from './logic-apps/Aviator/aviator-websocket.service';
 import { GoBetWebSocketService } from './logic-apps/Aviator/gobet-websocket.service';
-import { EightStarzWebSocketService } from './logic-apps/Aviator/888starz-websocket.service';
 import { RouletteWebSocketService } from './logic-apps/Roulettes/roulette-websocket.service';
 import { SpacemanWebSocketService } from './logic-apps/Spaceman/spaceman-websocket.service';
 import { AviatorGateway } from './gateways/aviator.gateway';
@@ -14,7 +13,6 @@ export class AppController {
     private readonly appService: AppService,
     private readonly aviatorWebSocketService: AviatorWebSocketService,
     private readonly goBetWebSocketService: GoBetWebSocketService,
-    private readonly eightStarzWebSocketService: EightStarzWebSocketService,
     private readonly rouletteWebSocketService: RouletteWebSocketService,
     private readonly spacemanWebSocketService: SpacemanWebSocketService,
     private readonly aviatorGateway: AviatorGateway,
@@ -54,11 +52,7 @@ export class AppController {
         await this.goBetWebSocketService.initializeConnections(server);
         console.log('✅ [BACKEND] GoBet WS iniciado correctamente');
         
-        // Iniciar servicio wss:// (888starz)
-        await this.eightStarzWebSocketService.initializeConnections();
-        console.log('✅ [BACKEND] 888starz WSS iniciado correctamente');
-        
-        results.aviator = { status: 'success', message: 'Servicios Aviator (888starz + GoBet) iniciados correctamente' };
+        results.aviator = { status: 'success', message: 'Servicios Aviator (wss:// + GoBet) iniciados correctamente' };
       } catch (error) {
         console.error('❌ [BACKEND] Error al iniciar Aviator:', error);
         results.aviator = { status: 'error', message: error.message };

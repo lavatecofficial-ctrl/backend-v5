@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AviatorWebSocketService } from './aviator-websocket.service';
 import { GoBetWebSocketService } from './gobet-websocket.service';
-import { EightStarzWebSocketService } from './888starz-websocket.service';
 import { AviatorController } from './aviator.controller';
 import { AviatorService } from './aviator.service';
 import { AviatorWs } from '../../entities/aviator-ws.entity';
@@ -25,14 +24,12 @@ import { GamesModule } from '../../games/games.module';
   providers: [
     AviatorWebSocketService, 
     GoBetWebSocketService,
-    EightStarzWebSocketService,
     AviatorHistoryService, 
     AviatorService
   ],
   exports: [
     AviatorWebSocketService, 
     GoBetWebSocketService,
-    EightStarzWebSocketService,
     AviatorHistoryService, 
     AviatorService
   ],

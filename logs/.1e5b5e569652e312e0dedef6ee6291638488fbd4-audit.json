@@ -6,14 +6,9 @@
     "auditLog": "logs\\.1e5b5e569652e312e0dedef6ee6291638488fbd4-audit.json",
     "files": [
         {
-            "date": 1762674136033,
-            "name": "logs\\spaceman-error-2025-11-09.log",
-            "hash": "333d59798fce9976eaa15f659796afc98f59c6e08a4c9ccbf57c286711e4bf1c"
-        },
-        {
-            "date": 1762752902059,
+            "date": 1762757242511,
             "name": "logs\\spaceman-error-2025-11-10.log",
-            "hash": "edb66e11bf2d1525a029250403490f46b73e175c1aa45908290a5c92b6700892"
+            "hash": "94abfd63f7e8e32764b5a66e1fa2b9d0944f1c7b6a2e22788654a9bf5cd613a4"
         }
     ],
     "hashType": "sha256"

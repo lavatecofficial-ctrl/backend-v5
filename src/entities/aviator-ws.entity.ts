@@ -25,6 +25,9 @@ export class AviatorWs {
   @Column({ type: 'text', nullable: true })
   ping_message: string;
 
+  @Column({ type: 'jsonb', nullable: true })
+  headers: any;
+
   @Column({ name: 'status_ws', type: 'varchar', length: 20, default: 'DISCONNECTED' })
   status_ws: string;
 

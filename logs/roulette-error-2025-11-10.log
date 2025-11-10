@@ -1,1 +1,1 @@
-{"level":"error","message":"Error checking bookmakers for WebSocket updates:","timestamp":"2025-11-10 00:34:40","trace":{"address":"143.198.65.214","code":"EHOSTUNREACH","errno":-4073,"port":5432,"syscall":"connect"}}
+{"level":"error","message":"Roulette prediction failed for bookmaker 4: Error","timestamp":"2025-11-10 01:52:09"}

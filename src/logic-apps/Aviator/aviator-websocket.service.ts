@@ -214,6 +214,7 @@ export class AviatorWebSocketService {
         this.roundData.delete(id);
       }
 
+      console.log(`🔗 [CONNECT] Conectando a URL: ${url_websocket}`);
       const ws = new WebSocket(url_websocket, [], { headers });
 
       this.connections.set(id, { ws, status: 'CONNECTING', lastPing: null });
@@ -230,9 +231,10 @@ export class AviatorWebSocketService {
         gameState: 'Bet',
       });
 
-      // Determinar protocolo
-      const isLegacyProtocol = url_websocket.startsWith('ws://');
-      console.log(`📡 [CONNECT] Bookmaker ${id} usa protocolo ${isLegacyProtocol ? 'LEGACY (base64)' : 'NUEVO (JSON)'}`);
+      // TODOS los bookmakers usan protocolo binario (base64)
+      // No importa si es ws:// o wss://
+      const isLegacyProtocol = true;
+      console.log(`📡 [CONNECT] Bookmaker ${id} usa protocolo BINARIO (base64)`);
 
       ws.on('open', () => {
         this.logger.log(`WebSocket connected for bookmaker ${id}`);
@@ -240,23 +242,9 @@ export class AviatorWebSocketService {
         this.connectingBookmakers.delete(id); // Remover del set de conexiones en progreso
         this.updateWebSocketStatusInDB(id, 'CONNECTED'); // Actualizar estado en BD
         
-        if (isLegacyProtocol) {
-          // Protocolo legacy (gobet): enviar api_message en base64
-          console.log(`📤 [LEGACY] Enviando api_message en base64 para bookmaker ${id}`);
-          ws.send(Buffer.from(api_message, 'base64'));
-        } else {
-          // Protocolo nuevo (888starz, etc): enviar handshake JSON
-          console.log(`📤 [JSON] Enviando handshake JSON para bookmaker ${id}`);
-          const handshake = {
-            c: 0,
-            a: 0,
-            p: {
-              api: '1.8.4',
-              cl: 'Node.js'
-            }
-          };
-          ws.send(JSON.stringify(handshake));
-        }
+        // Enviar api_message en base64 (para todos los bookmakers)
+        console.log(`📤 [BINARY] Enviando api_message en base64 para bookmaker ${id}`);
+        ws.send(Buffer.from(api_message, 'base64'));
       });
 
       ws.on('message', async (data: Buffer) => {
@@ -358,15 +346,11 @@ export class AviatorWebSocketService {
           }
           
           const decodedMessage = gameMessage;
-
-          if (decodedMessage.p) {
-            const { p, c } = decodedMessage.p;
+          
+          // obj.p ya tiene {c: comando, p: payload} directamente
+          const { p, c } = decodedMessage;
+          if (p && c) {
             
-            // Log de TODOS los comandos para debug
-            if (c !== 'x' || (c === 'x' && p.crashX !== undefined)) {
-              this.logger.log(`📡 [${name}] Comando recibido: ${c}`, p.crashX ? `crashX=${p.crashX}` : '');
-            }
-
             if (c === 'updateCurrentBets') {
               // Solo actualizar durante estado Bet (o si aún no hay estado definido)
               if (roundData.gameState === 'Bet' || !roundData.gameState) {

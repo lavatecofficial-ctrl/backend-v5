@@ -1,5 +1,0 @@
-{"level":"error","message":"Error WebSocket multiplicador para Spaceman ID: 1: socket hang up","timestamp":"2025-11-09 03:03:51"}
-{"level":"error","message":"Error WebSocket finanzas para Spaceman ID: 1: read ECONNRESET","timestamp":"2025-11-09 03:04:04"}
-{"level":"error","message":"URL que falló: wss://gs12.pragmaticplaylive.net/game?bcs=true&JSESSIONID=RKFniTW7GMsB7P2fO_tgrazg5iMDsHMWProKa16aFO6egfPRAVtc%21-608409926-bc09dee2&tableId=spacemanyxe123nh","timestamp":"2025-11-09 03:04:04"}
-{"level":"error","message":"Stack completo: Error: read ECONNRESET\n    at TLSWrap.onStreamRead (node:internal/stream_base_commons:216:20)","timestamp":"2025-11-09 03:04:04"}
-{"level":"error","message":"Error WebSocket finanzas para Spaceman ID: 1: socket hang up","timestamp":"2025-11-09 03:06:16"}

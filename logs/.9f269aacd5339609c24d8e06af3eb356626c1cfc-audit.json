@@ -6,14 +6,9 @@
     "auditLog": "logs\\.9f269aacd5339609c24d8e06af3eb356626c1cfc-audit.json",
     "files": [
         {
-            "date": 1762674136018,
-            "name": "logs\\aviator-error-2025-11-09.log",
-            "hash": "a767ad70f69c0e727e783a5828dc12cfc561ecad2efd41020e9706ef564ae4f8"
-        },
-        {
-            "date": 1762752902050,
+            "date": 1762757242502,
             "name": "logs\\aviator-error-2025-11-10.log",
-            "hash": "0f8a3020084d49c96cf4e946d879d08d66d3e8eb37aff54dfbee23fccf22d361"
+            "hash": "9f254454d95e0e660142692b2e2c96d4e434a951ebbb1fd30fa46c59342109e4"
         }
     ],
     "hashType": "sha256"
