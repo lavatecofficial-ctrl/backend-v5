@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { AviatorWebSocketService } from './aviator-websocket.service';
+import { GoBetWebSocketService } from './gobet-websocket.service';
 import { AviatorGateway } from '../../gateways/aviator.gateway';
 import { AviatorService } from './aviator.service';
 import { AviatorHistoryService } from './aviator-history.service';
@@ -9,6 +10,7 @@ import { PredictorService, RoundDto } from '../../services/predictor/predictor.s
 export class AviatorController {
   constructor(
     private readonly aviatorWebSocketService: AviatorWebSocketService,
+    private readonly gobetWebSocketService: GoBetWebSocketService,
     private readonly aviatorGateway: AviatorGateway,
     private readonly aviatorService: AviatorService,
     private readonly aviatorHistoryService: AviatorHistoryService,
@@ -153,13 +155,17 @@ export class AviatorController {
   @Post('start')
   async startService() {
     try {
+      // Iniciar servicio general de Aviator (888starz y otros con wss://)
       await this.aviatorWebSocketService.initializeConnections(this.aviatorGateway.getServer());
+      
+      // Iniciar servicio específico de Gobet (ws://)
+      await this.gobetWebSocketService.initializeConnections(this.aviatorGateway.getServer());
       
       // Esperar un momento para que las conexiones se establezcan
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       return {
-        message: 'Servicio de Aviator iniciado correctamente',
+        message: 'Servicio de Aviator iniciado correctamente (Gobet + 888starz)',
         timestamp: new Date().toISOString(),
         status: 'success'
       };
