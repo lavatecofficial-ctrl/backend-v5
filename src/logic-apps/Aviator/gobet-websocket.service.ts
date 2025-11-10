@@ -318,18 +318,13 @@ export class GoBetWebSocketService {
             await this.saveRoundData(id, roundData.maxMultiplier);
             
             // Emitir historial actualizado
-            if (server) {
-              const bookmaker = await this.bookmakerRepository.findOne({ where: { id } });
-              if (bookmaker) {
-                const history = await this.aviatorWsRepository.query(`
-                  SELECT * FROM aviator_rounds 
-                  WHERE bookmaker_id = $1 
-                  ORDER BY created_at DESC 
-                  LIMIT 100
-                `, [id]);
-                
-                server.to(`bookmaker:${id}`).emit('history', { rounds: history });
-              }
+            if (this.io) {
+              const updatedHistory = await this.fetchRecentRounds(id, 100);
+              this.io.to(`bookmaker:${id}`).emit('history', {
+                bookmakerId: id,
+                rounds: updatedHistory
+              });
+              console.log(`✅ [GOBET] Historial actualizado emitido - ${updatedHistory.length} rondas`);
             }
           }
           
@@ -422,6 +417,40 @@ export class GoBetWebSocketService {
     } catch (error) {
       console.error(`❌ [GOBET] Error guardando ronda:`, error);
     }
+  }
+
+  private async fetchRecentRounds(
+    bookmakerId: number,
+    limit: number = 100,
+  ): Promise<Array<{
+    round_id: string;
+    max_multiplier: number;
+    total_bet_amount: number;
+    total_cashout: number;
+    casino_profit: number;
+    bets_count: number;
+    online_players: number;
+    created_at: string;
+  }>> {
+    const rows = await this.aviatorWsRepository.query(
+      `SELECT round_id, max_multiplier, total_bet_amount, total_cashout, casino_profit, bets_count, online_players, created_at
+       FROM aviator_rounds
+       WHERE bookmaker_id = $1
+       ORDER BY created_at DESC
+       LIMIT $2`,
+      [bookmakerId, limit]
+    );
+
+    return rows.map((r: any) => ({
+      round_id: r.round_id,
+      max_multiplier: Number(r.max_multiplier),
+      total_bet_amount: Number(r.total_bet_amount),
+      total_cashout: Number(r.total_cashout),
+      casino_profit: Number(r.casino_profit),
+      bets_count: Number(r.bets_count),
+      online_players: Number(r.online_players),
+      created_at: r.created_at,
+    }));
   }
 
   private resetRoundData(bookmaker_id: number): void {

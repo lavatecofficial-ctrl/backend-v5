@@ -22,3 +22,11 @@
 {"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 00:35:04"}
 {"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 00:35:04"}
 {"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 00:35:04"}
+{"level":"info","message":"Gateway Roulette inicializado","timestamp":"2025-11-10 00:41:22"}
+{"level":"info","message":"Inicializando conexiones WebSocket de Ruleta","timestamp":"2025-11-10 00:41:22"}
+{"level":"info","message":"WebSocket connected for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 00:41:23"}
+{"level":"info","message":"Handshake sent for roulette 6 (lightning-roulette)","timestamp":"2025-11-10 00:41:23"}
+{"level":"info","message":"WebSocket connected for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 00:41:23"}
+{"level":"info","message":"Handshake sent for roulette 5 (pragmatic-mega-roulette)","timestamp":"2025-11-10 00:41:23"}
+{"level":"info","message":"WebSocket connected for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-10 00:41:23"}
+{"level":"info","message":"Handshake sent for roulette 4 (pragmatic-roulette-macao)","timestamp":"2025-11-10 00:41:23"}
